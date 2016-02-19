@@ -27,7 +27,7 @@ cd ..
 catkin_make
 ```
 -------------------------------
-!! Als je problemen hetbt met position2d.h dan moet je volgende stappen ondernemen
+!! Als je problemen hebt met position2d.h dan moet je volgende stappen ondernemen
 Je moet de laatste lijnen vanaf **"include_directories(include ${catkin_INCLUDE_DIRS})"** in commentaar zetten ( mbv # ) dan vervolgens catkin_make terug draaien dan vervolgens terug die lijnen uit commentaar halen en nog eens catkin_make draaien:
 ```{r, engine='bash', count_lines}
 nano src/roycobot/CMakeLists.txt
