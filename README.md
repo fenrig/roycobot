@@ -21,11 +21,21 @@ echo $ROS_PACKAGE_PATH
 cd src
 git clone git@github.com:fenrig/roycobot.git
 ```
-Compileer de pakketen in de workspace
+Compileer de pakketen in de workspace (het kan zijn dat dit niet werkt)
 ```{r, engine='bash', count_lines}
 cd ..
 catkin_make
 ```
+-------------------------------
+!! Als je problemen hetbt met position2d.h dan moet je volgende stappen ondernemen
+Je moet de laatste lijnen vanaf **"include_directories(include ${catkin_INCLUDE_DIRS})"** in commentaar zetten ( mbv # ) dan vervolgens catkin_make terug draaien dan vervolgens terug die lijnen uit commentaar halen en nog eens catkin_make draaien:
+```{r, engine='bash', count_lines}
+nano src/roycobot/CMakeLists.txt
+catkin_make
+nano src/roycobot/CMakeLists.txt
+catkin_make
+```
+--------------------------------
 Controleer of het roycobot package werkt
 ```{r, engine='bash', count_lines}
 rosmsg show position2d
