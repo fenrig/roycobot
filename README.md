@@ -14,7 +14,7 @@ catkin_init_workspace
 cd ..
 catkin_make
 ```
-Source de ros_workspace 
+Source de ros_workspace en kopieer de git repo catkin package waarin we ons project gaan maken
 ```{r, engine='bash', count_lines}
 source devel/setup.bash
 echo $ROS_PACKAGE_PATH
@@ -26,7 +26,7 @@ Compileer de pakketen in de workspace
 cd ..
 catkin_make
 ```
-Controleer of het roycobot werkt
+Controleer of het roycobot package werkt
 ```{r, engine='bash', count_lines}
-rosmsg show two_dim_position
+rosmsg show position2d
 ```
