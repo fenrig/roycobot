@@ -203,3 +203,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 add_executable(pathplanner src/pathplanner.cpp)
 target_link_libraries(pathplanner ${catkin_LIBRARIES})
 add_dependencies(pathplanner labo_generate_messages_cpp)
+
+add_executable(pathplanner_tester src/pathplanner_tester.cpp)
+target_link_libraries(pathplanner_tester ${catkin_LIBRARIES})
+add_dependencies(pathplanner_tester labo_generate_messages_cpp)
