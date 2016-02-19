@@ -1,11 +1,11 @@
 #include "ros/ros.h"
-#include "roycobot/two_dim_position.h"
+#include "roycobot/position2d.h"
 #include "topics.h"
 
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */
-void chatterCallback(const roycobot::two_dim_position::ConstPtr& msg)
+void chatterCallback(const roycobot::position2d::ConstPtr& msg)
 {
   ROS_INFO("I heard: [x: %u - y: %u]", msg->x, msg->y);
 }

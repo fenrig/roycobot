@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "roycobot/two_dim_position.h"
+#include "roycobot/position2d.h"
 #include "topics.h"
 
 #include <sstream>
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatter_pub = n.advertise<roycobot::two_dim_position>(robotposition, 1000);
+  ros::Publisher chatter_pub = n.advertise<roycobot::position2d>(robotposition, 1000);
 
   ros::Rate loop_rate(10);
 
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
-    roycobot::two_dim_position msg;
+    roycobot::position2d msg;
 
     msg.x = count;
     msg.y = count;
