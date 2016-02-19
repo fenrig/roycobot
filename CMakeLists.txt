@@ -52,7 +52,7 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 add_message_files(
   FILES
-  two_dim_position.msg
+  position2d.msg
 )
 
 ## Generate services in the 'srv' folder
