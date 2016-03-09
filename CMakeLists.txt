@@ -53,6 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   position2d.msg
+  rijsignaal.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -207,3 +208,15 @@ add_dependencies(pathplanner labo_generate_messages_cpp)
 add_executable(pathplanner_tester src/pathplanner_tester.cpp)
 target_link_libraries(pathplanner_tester ${catkin_LIBRARIES})
 add_dependencies(pathplanner_tester labo_generate_messages_cpp)
+
+add_executable(rijden src/rijden.cpp)
+target_link_libraries(rijden ${catkin_LIBRARIES})
+add_dependencies(rijden labo_generate_messages_cpp)
+
+find_package(PkgConfig)
+pkg_check_modules(LIBSERIAL REQUIRED libserialport)
+
+include_directories(${LIBSERIAL_INCLUDE_DIRS})
+link_directories(${LIBSERIAL_LIBRARY_DIRS})
+target_link_libraries(rijden ${LIBSERIAL_LIBRARIES})
+
