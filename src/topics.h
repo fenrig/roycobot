@@ -1,3 +1,4 @@
-#define robotposition 		"position"
+#define robotposition 		  "position"
+#define robotturn           "turn"  
 #define otherrobotposition 	"otherposition"
-#define pathplanning		"pathplanning"
+#define pathplanning		    "pathplanning"
