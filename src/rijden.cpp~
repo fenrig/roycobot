@@ -16,6 +16,7 @@ using namespace std;
 String msg;
 stringstream ss;
 char buf[15];
+struct sp_port port;
 
 /*void Verzender(void){
     ss << "hello world " << count;
@@ -26,7 +27,7 @@ char buf[15];
     loop_rate.sleep();
     ++count;
 }*/
-/*
+
 
 void stop(void){
     strcpy(buf, "q 0 0");
@@ -74,23 +75,29 @@ void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::
         draaien(signaal->waarde);
     }
 }
-*/
+
 int main(int argc, char **argv){
 
 	printf("start\n");    
-//ros::init(argc, argv, "rijden");
-    //ros::NodeHandle n;
-    ///ros::Publisher chatter_pub = n.advertise<std_msgs::String>("pathplanning", 1000);
-    //ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(pathplanning, 1000, Ontvanger);
-    //ros::Rate loop_rate(10);
+    ros::init(argc, argv, "rijden");
+    ros::NodeHandle n;
+    //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("pathplanning", 1000);
+    
     struct sp_port **ports;
 
     sp_list_ports(&ports);
     for(int i=0; ports[i]; i++){
-	printf("found port: %s\n", sp_get_port_name(ports[i]));
+	printf("Possible port: %s\n", sp_get_port_name(ports[i]));
+	if(strcmp(sp_get_port_name(ports[i]), "/dev/ttyUSB0") == 0){
+		port = ports[i];
+		printf("Port Found: %s\n", sp_get_port_name(port));
+		break;
+	}
     }
-
+	printf("the end\n");    
     int count = 0;
+    ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(pathplanning, 1000, Ontvanger);
+    ros::Rate loop_rate(10);
     while (ros::ok()){
         //Verzender();
         ros::spinOnce();
