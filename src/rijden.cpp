@@ -91,6 +91,12 @@ int main(int argc, char **argv){
 	if(strcmp(sp_get_port_name(ports[i]), "/dev/ttyUSB0") == 0){
 		port = ports[i];
 		printf("Port Found: %s\n", sp_get_port_name(port));
+		draaien(1);
+		sleep(3000);
+		stop();
+		rijden(20);
+		sleep(2000);
+		stop();
 		break;
 	}
     }
