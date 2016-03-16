@@ -30,7 +30,7 @@ struct sp_port *port;
 
 
 void stop(void){
-    strcpy(buf, "q 0 0");
+    strcpy(buf, "q 0 0\r");
     sp_nonblocking_write(port, buf, sizeof(buf));
 
 }
@@ -42,20 +42,20 @@ void rijden(int waarde){
 ///[speed right -100 –- 100] speed left motor right motor
 /// --> serieel sturen
 	if(waarde > 0){
-		strcpy(buf, "q 100 100");
+		strcpy(buf, "q 100 100\r");
 	}
 	else if(waarde < 0){
-    		strcpy(buf, "q -100 -100");
+    		strcpy(buf, "q -100 -100\r");
 	}
     sp_nonblocking_write(port, buf, sizeof(buf));
 }
 
 void draaien(int waarde){
     if(waarde < 0){
-        strcpy(buf, "q -10 10");
+        strcpy(buf, "q -10 10\r");
     }
     else if(waarde > 0){
-        strcpy(buf, "q 10 -10");
+        strcpy(buf, "q 10 -10\r");
     }
     sp_nonblocking_write(port, buf, sizeof(buf));
 }

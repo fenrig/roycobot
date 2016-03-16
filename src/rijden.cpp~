@@ -90,6 +90,7 @@ int main(int argc, char **argv){
 	printf("Possible port: %s\n", sp_get_port_name(ports[i]));
 	if(strcmp(sp_get_port_name(ports[i]), "/dev/ttyUSB0") == 0){
 		port = ports[i];
+		sp_set_baudrate(port, 38400);
 		printf("Port Found: %s\n", sp_get_port_name(port));
 		draaien(1);
 		sleep(3000);
