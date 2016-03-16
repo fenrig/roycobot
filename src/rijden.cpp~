@@ -77,7 +77,7 @@ void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::
 }
 
 int main(int argc, char **argv){
-s
+
 	printf("start\n");    
     ros::init(argc, argv, "rijden");
     ros::NodeHandle n;
