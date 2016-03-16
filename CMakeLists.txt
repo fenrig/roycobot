@@ -54,6 +54,7 @@ add_message_files(
   FILES
   position2d.msg
   rijsignaal.msg
+  turn.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -212,6 +213,10 @@ add_dependencies(pathplanner_tester labo_generate_messages_cpp)
 add_executable(rijden src/rijden.cpp)
 target_link_libraries(rijden ${catkin_LIBRARIES})
 add_dependencies(rijden labo_generate_messages_cpp)
+
+add_executable(imgProc src/imgProc.cpp)
+target_link_libraries(imgProc ${catkin_LIBRARIES})
+add_dependencies(imgProc labo_generate_messages_cpp)
 
 find_package(PkgConfig)
 pkg_check_modules(LIBSERIAL REQUIRED libserialport)
