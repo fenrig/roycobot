@@ -103,7 +103,7 @@ int main(int argc, char **argv){
     }
 	printf("the end\n");    
     int count = 0;
-    ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(pathplanning, 1000, Ontvanger);
+    ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(pathplanning, 10, Ontvanger);
     ros::Rate loop_rate(10);
     while (ros::ok()){
         //Verzender();
