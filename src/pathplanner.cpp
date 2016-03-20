@@ -1,14 +1,47 @@
 #include "ros/ros.h"
 #include "roycobot/position2d.h"
+#include "roycobot/rijsignaal.h"
 #include "topics.h"
 
-/**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
- */
-void chatterCallback(const roycobot::position2d::ConstPtr& msg)
-{
-  ROS_INFO("I heard: [x: %u - y: %u]", msg->x, msg->y);
+// --- sleep
+#include <unistd.h>
+#define SLEEP(seconds) usleep(seconds * 1000000);
+
+// --- Rijd ROS node ---
+#define DRIVEMACRO(name, value) \
+    roycobot::rijsignaal msg; \
+    msg.naam = #name ; \
+    msg.waarde = value ;
+
+ros::Publisher chatter_sub_drive;
+void driveForward(void){
+    DRIVEMACRO(rijden, 1);
+    chatter_sub_drive.publish(msg);
 }
+
+void driveBackward(void){
+    DRIVEMACRO(rijden, -1);
+    chatter_sub_drive.publish(msg);
+}
+
+void driveTurnLeft(void){
+    DRIVEMACRO(draaien, 1);
+    chatter_sub_drive.publish(msg);
+}
+
+void driveTurnRight(void){
+    DRIVEMACRO(draaien, -1);
+    chatter_sub_drive.publish(msg);
+}
+
+void driveStop(void){
+    DRIVEMACRO(stop, 0);
+    chatter_sub_drive.publish(msg);
+}
+
+#undef DRIVEMACRO
+// -----------------
+
 
 int main(int argc, char **argv)
 {
@@ -46,14 +79,34 @@ int main(int argc, char **argv)
    * is the number of messages that will be buffered up before beginning to throw
    * away the oldest ones.
    */
-  ros::Subscriber sub = n.subscribe(robotposition, 1, chatterCallback);
+   chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
+   
+   while(true){
+          driveForward();
+          SLEEP(3);
+          driveStop();
+          SLEEP(1);
+          driveBackward();
+          SLEEP(3);
+          driveStop();
+          SLEEP(1);
+          driveTurnLeft();
+          SLEEP(3);
+          driveStop();
+          SLEEP(1);
+          driveTurnRight();
+          SLEEP(3);
+          driveStop();
+          SLEEP(1);
+   }
+  
 
   /**
    * ros::spin() will enter a loop, pumping callbacks.  With this version, all
    * callbacks will be called from within this thread (the main one).  ros::spin()
    * will exit when Ctrl-C is pressed, or the node is shutdown by the master.
    */
-  ros::spin();
+  //ros::spin();
 
   return 0;
 }

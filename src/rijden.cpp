@@ -81,7 +81,7 @@ int main(int argc, char **argv){
 	printf("start\n");    
     ros::init(argc, argv, "rijden");
     ros::NodeHandle n;
-    //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("pathplanning", 1000);
+    //ros::Publisher chatter_pub = n.advertise<std_msgs::String>(pathplanning, 10);
     
     struct sp_port **ports;
 
@@ -103,7 +103,7 @@ int main(int argc, char **argv){
     }
 	printf("the end\n");    
     int count = 0;
-    ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(pathplanning, 10, Ontvanger);
+    ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
     ros::Rate loop_rate(10);
     while (ros::ok()){
         //Verzender();
