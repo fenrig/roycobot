@@ -93,29 +93,15 @@ int main(int argc, char **argv){
 		if(sp_open(port, SP_MODE_READ_WRITE) == SP_OK){
 			sp_set_baudrate(port, 38400);
 			printf("Port Found: %s\n", sp_get_port_name(port));
-			draaien(1);
-			sleep(3);
-			stop();
-			sleep(20);
-			rijden(20);
-			sleep(6);
-			stop();
-			sleep(10);
-			stop();
+			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
+			ros::spin();
+		
 		}else{
 			printf("Kon poort niet openen\n");		
 		}
 		printf("the end\n");
 		return 2;
 	}
-    }
-	printf("the end\n");    
-    int count = 0;
-    ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
-    ros::Rate loop_rate(10);
-    while (ros::ok()){
-        //Verzender();
-        ros::spinOnce();
-    }
+   }
     return 0;
 }
