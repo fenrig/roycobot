@@ -31,7 +31,7 @@ struct sp_port *port;
 
 void stop(void){
     strcpy(buf, "q 0 0\r");
-    sp_nonblocking_write(port, buf, sizeof(buf));
+    sp_nonblocking_write(port, buf, 6);
 
 }
 
@@ -42,12 +42,12 @@ void rijden(int waarde){
 ///[speed right -100 –- 100] speed left motor right motor
 /// --> serieel sturen
 	if(waarde > 0){
-		strcpy(buf, "q 100 100\r");
+		strcpy(buf, "q 100 100\r\0\0");
 	}
 	else if(waarde < 0){
     		strcpy(buf, "q -100 -100\r");
 	}
-    sp_nonblocking_write(port, buf, sizeof(buf));
+    sp_nonblocking_write(port, buf, 12);
 }
 
 void draaien(int waarde){
@@ -57,7 +57,7 @@ void draaien(int waarde){
     else if(waarde > 0){
         strcpy(buf, "q 100 -100\r");
     }
-    sp_nonblocking_write(port, buf, sizeof(buf));
+    sp_nonblocking_write(port, buf, 11);
 }
 
 void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::String::ConstPtr& msg){
