@@ -52,10 +52,10 @@ void rijden(int waarde){
 
 void draaien(int waarde){
     if(waarde < 0){
-        strcpy(buf, "q -10 10\r");
+        strcpy(buf, "q -100 100\r");
     }
     else if(waarde > 0){
-        strcpy(buf, "q 10 -10\r");
+        strcpy(buf, "q 100 -100\r");
     }
     sp_nonblocking_write(port, buf, sizeof(buf));
 }
@@ -103,7 +103,7 @@ int main(int argc, char **argv){
 			printf("Kon poort niet openen\n");		
 		}
 		printf("the end\n");
-		return;
+		return 2;
 	}
     }
 	printf("the end\n");    
