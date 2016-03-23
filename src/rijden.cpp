@@ -90,15 +90,20 @@ int main(int argc, char **argv){
 	printf("Possible port: %s\n", sp_get_port_name(ports[i]));
 	if(strcmp(sp_get_port_name(ports[i]), "/dev/ttyUSB0") == 0){
 		port = ports[i];
-		sp_set_baudrate(port, 38400);
-		printf("Port Found: %s\n", sp_get_port_name(port));
-		draaien(1);
-		sleep(3000);
-		stop();
-		rijden(20);
-		sleep(2000);
-		stop();
-		break;
+		if(sp_open(port, SP_MODE_READ_WRITE) == SP_OK){
+			sp_set_baudrate(port, 38400);
+			printf("Port Found: %s\n", sp_get_port_name(port));
+			draaien(1);
+			sleep(3);
+			stop();
+			rijden(20);
+			sleep(2);
+			stop();
+		}else{
+			printf("Kon poort niet openen\n");		
+		}
+		printf("the end\n");
+		return;
 	}
     }
 	printf("the end\n");    
