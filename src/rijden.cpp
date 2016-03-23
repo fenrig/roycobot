@@ -96,9 +96,11 @@ int main(int argc, char **argv){
 			draaien(1);
 			sleep(3);
 			stop();
+			sleep(3);
 			rijden(20);
-			sleep(2);
+			sleep(6);
 			stop();
+			sleep(10);
 		}else{
 			printf("Kon poort niet openen\n");		
 		}
