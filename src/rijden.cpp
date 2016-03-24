@@ -42,12 +42,14 @@ void rijden(int waarde){
 ///[speed right -100 –- 100] speed left motor right motor
 /// --> serieel sturen
 	if(waarde > 0){
-		strcpy(buf, "q 100 100\r\0\0");
+		strcpy(buf, "q 100 100\r");
+		sp_nonblocking_write(port, buf, 10);
 	}
 	else if(waarde < 0){
     		strcpy(buf, "q -100 -100\r");
+		sp_nonblocking_write(port, buf, 12);
 	}
-    sp_nonblocking_write(port, buf, 12);
+
 }
 
 void draaien(int waarde){
@@ -95,13 +97,12 @@ int main(int argc, char **argv){
 			printf("Port Found: %s\n", sp_get_port_name(port));
 			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
 			ros::spin();
+			return 0;
 		
 		}else{
 			printf("Kon poort niet openen\n");		
 		}
-		printf("the end\n");
-		return 2;
 	}
    }
-    return 0;
+    return 1;
 }
