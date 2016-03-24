@@ -17,6 +17,9 @@ cv::vector<cv::Point2f> grid;
 ros::Subscriber posScrib;
 ros::Publisher posPub;
 
+#define boardX 0
+#define boardY 0
+
 void vulCoord()
 {
     cv::Point2f pt(96,13.2);
@@ -179,7 +182,7 @@ cv::Point2f positionDef()
     }
     else
     {
-        return cv::Point2f(404,404);
+        return cv::Point2f(-1,-1);
     }
 }
 
@@ -188,12 +191,15 @@ void chatterPosition(const roycobot::position2d::ConstPtr& msg)
     if(msg->x==-1 && msg->y ==-1)
     {
         ROS_INFO("Please calculate your position");
-        cap>>inputFrame;
-        cv::Point2f point = positionDef();
+        
+	cap >> inputFrame;
+        
+	cv::Point2f point = positionDef();
         roycobot::position2d sendmsg;
         sendmsg.x= (uint)point.x;
         sendmsg.y= (uint)point.y;
         posPub.publish(sendmsg);
+
         ros::spinOnce();
     }
     else
