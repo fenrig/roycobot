@@ -228,7 +228,7 @@ add_dependencies(rijden labo_generate_messages_cpp)
 add_executable(imgProc src/imgProc.cpp)
 target_link_libraries(imgProc ${catkin_LIBRARIES} ${OpenCV_LIBS} ${aruco_LIBS})
 add_dependencies(imgProc labo_generate_messages_cpp)
-add_dependencies(imgProc ${catkin_EXPORTED_TARGETS})
+#add_dependencies(imgProc ${catkin_EXPORTED_TARGETS})
 
 
 find_package(PkgConfig)
