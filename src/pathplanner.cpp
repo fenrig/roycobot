@@ -85,6 +85,8 @@ int main(int argc, char **argv)
           driveForward();
 	  sleep(5);
 	  driveBackward();
+	  sleep(10);
+	  driveForward();
 	  return 0;
    }
   
