@@ -205,6 +205,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 LIST(APPEND CMAKE_MODULE_PATH /usr/local/lib/cmake)
 
 SET(ARUCO_INCLUDE_DIRS ${ARUCO_PATH}/include/aruco )
+include_directories(${LIBSERIAL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${ARUCO_INCLUDE_DIRS})
 
 find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry)
 find_package(aruco REQUIRED )
@@ -234,7 +235,7 @@ add_dependencies(imgProc labo_generate_messages_cpp)
 find_package(PkgConfig)
 pkg_check_modules(LIBSERIAL REQUIRED libserialport)
 
-include_directories(${LIBSERIAL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${ARUCO_INCLUDE_DIRS})
+
 link_directories(${LIBSERIAL_LIBRARY_DIRS})
 target_link_libraries(rijden ${LIBSERIAL_LIBRARIES})
 
