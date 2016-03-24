@@ -11,37 +11,32 @@
 #define DRIVEMACRO(name, value) \
     roycobot::rijsignaal msg; \
     msg.naam = #name ; \
-    msg.waarde = value ;
+    msg.waarde = value ; \
+    chatter_sub_drive.publish(msg);
 
 ros::Publisher chatter_sub_drive;
 void driveForward(void){
     DRIVEMACRO(rijden, 1);
-    chatter_sub_drive.publish(msg);
 }
 
 void driveBackward(void){
     DRIVEMACRO(rijden, -1);
-    chatter_sub_drive.publish(msg);
 }
 
 void driveTurnLeft(void){
     DRIVEMACRO(draaien, 1);
-    chatter_sub_drive.publish(msg);
 }
 
 void driveTurnRight(void){
     DRIVEMACRO(draaien, -1);
-    chatter_sub_drive.publish(msg);
 }
 
 void driveStop(void){
     DRIVEMACRO(stop, 0);
-    chatter_sub_drive.publish(msg);
 }
 
 void driveInit(void){
     DRIVEMACRO(useless, 0);
-    chatter_sub_drive.publish(msg);
 }
 
 #undef DRIVEMACRO
@@ -85,9 +80,9 @@ int main(int argc, char **argv)
    * away the oldest ones.
    */
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
-   driveInit();
+   sleep(2);
    
-   while(true){
+   while(ros::ok()){
 	  driveBackward();
 	  sleep(10);
           driveForward();
