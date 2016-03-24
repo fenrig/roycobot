@@ -83,21 +83,7 @@ int main(int argc, char **argv)
    
    while(true){
           driveForward();
-          SLEEP(3);
-          driveStop();
-          SLEEP(1);
-          driveBackward();
-          SLEEP(3);
-          driveStop();
-          SLEEP(1);
-          driveTurnLeft();
-          SLEEP(3);
-          driveStop();
-          SLEEP(1);
-          driveTurnRight();
-          SLEEP(3);
-          driveStop();
-          SLEEP(1);
+	  return 0;
    }
   
 
