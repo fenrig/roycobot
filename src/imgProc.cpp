@@ -1,5 +1,7 @@
 #include "ros/ros.h"
 #include "topics.h"
+#include "roycobot/position2d.h"
+
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
@@ -60,7 +62,7 @@ cv::Point2f cosinusRegel(aruco::Marker m1, aruco::Marker m2)
     float alpha = 180 * acos(cosAlpha) / M_PI;
     float y = sqrt(d22) * cosAlpha;
     float x = sqrt(d22 - y * y);
-    return Point2f(x, y);
+    return cv::Point2f(x, y);
 }
 
 double findCan()
@@ -129,7 +131,7 @@ cv::Point2f positionDef()
     MDetector.detect(inputFrame,Markers,TheCameraParams,0.176);
     for (unsigned int i=0; i<Markers.size(); i++)
     {
-        Markers[i].draw(inputFrame,Scalar(0,0,255),2);
+        Markers[i].draw(inputFrame,cv::Scalar(0,0,255),2);
         Markers[i].calculateExtrinsics(9.021597938, TheCameraParams);
         double modelview_matrix[16];
         Markers[i].glGetModelViewMatrix(modelview_matrix);
