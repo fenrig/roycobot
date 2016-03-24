@@ -202,7 +202,8 @@ include_directories(
 ###############################################3
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-set( aruco_DIR /usr/local/lib/cmake )
+LIST(APPEND CMAKE_MODULE_PATH /usr/local/lib/cmake)
+
 SET(ARUCO_INCLUDE_DIRS ${ARUCO_PATH}/include/aruco )
 
 find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry)
