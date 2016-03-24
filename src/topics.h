@@ -2,3 +2,4 @@
 #define robotdrive           		"robotdrive"  
 #define otherrobotposition 		"otherposition"
 #define pathplanning		    	"pathplanning"
+#define pathplanning_img		"pathplanning_img"

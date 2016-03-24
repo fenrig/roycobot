@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
 {
     ros::init(argc,argv,"pathplanner");
     ros::NodeHandle pHandlerLis,tHandlerLis,pHandlerPub,tHandlerPub;
-    posScrib=pHandlerLis.subscribe(pathplanner,1, chatterPosition);
+    posScrib=pHandlerLis.subscribe(pathplanning_img,1, chatterPosition);
 //    ros::Subscriber turnScrib=tHandlerLis.subscribe(robotturn,1,chatterCan);
     posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition, 10);
 //    ros::Publisher turnPub=tHandlerPub.advertise<roycobot::turn>(robotturn,1000);
