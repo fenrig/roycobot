@@ -82,11 +82,15 @@ int main(int argc, char **argv)
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
    
    while(true){
+	  driveBackward();
+	  sleep(10);
           driveForward();
-	  sleep(5);
+	  sleep(10);
 	  driveBackward();
 	  sleep(10);
 	  driveForward();
+	  sleep(10);
+	  driveStop();
 	  return 0;
    }
   
