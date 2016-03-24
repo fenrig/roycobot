@@ -83,13 +83,7 @@ int main(int argc, char **argv)
    sleep(2);
    
    while(ros::ok()){
-	  driveBackward();
-	  sleep(10);
-          driveForward();
-	  sleep(10);
-	  driveBackward();
-	  sleep(10);
-	  driveForward();
+	  driveTurnLeft();
 	  sleep(10);
 	  driveStop();
 	  return 0;
