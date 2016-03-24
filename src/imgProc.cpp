@@ -47,7 +47,7 @@ void vulCoord()
     }
 }
 
-Point2f cosinusRegel(aruco::Marker m1, aruco::Marker m2)
+cv::Point2f cosinusRegel(aruco::Marker m1, aruco::Marker m2)
 {
     float x1 = m1.Tvec.ptr< float >(0)[0];
     float z1 = m1.Tvec.ptr< float >(0)[2];
