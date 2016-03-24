@@ -83,6 +83,8 @@ int main(int argc, char **argv)
    
    while(true){
           driveForward();
+	  sleep(5);
+	  driveBackward();
 	  return 0;
    }
   
