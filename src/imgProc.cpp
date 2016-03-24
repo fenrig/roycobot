@@ -14,6 +14,9 @@ int grad;
 cv::VideoCapture cap("0");
 cv::vector<cv::Point2f> grid;
 
+ros::Subscriber posScrib;
+ros::Publisher posPub;
+
 void vulCoord()
 {
     cv::Point2f pt(96,13.2);
@@ -199,7 +202,7 @@ void chatterPosition(const roycobot::position2d::ConstPtr& msg)
     }
 }
 
-void chatterCan(Const roycobot::turn::ConstrPtr& msg)
+void chatterCan(const roycobot::turn::ConstrPtr& msg)
 {
     if(msg->r == 666)
     {
@@ -207,10 +210,13 @@ void chatterCan(Const roycobot::turn::ConstrPtr& msg)
         cap>>inputFrame;
         double grads = findCan();
         grad = (int)grads;
+/*
         roycobot::turn sendmsg;
         sendmsg.r=grad;
         turnPub.publish(sendmsg);
+
         ros::spinOnce();
+*/
     }
     else
     {
@@ -222,10 +228,10 @@ int main(int argc, char *argv[])
 {
     ros::init(argc,argv,"pathplanner");
     ros::NodeHandle pHandlerLis,tHandlerLis,pHandlerPub,tHandlerPub;
-    ros::Subscriber posScrib=pHandlerLis.subscribe(robotposition,1,chatterPosition);
-    ros::Subscriber turnScrib=tHandlerLis.subscribe(robotturn,1,chatterCan);
-    ros::Publisher posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition,1000);
-    ros::Publisher turnPub=tHandlerPub.advertise<roycobot::turn>(robotturn,1000);
+    posScrib=pHandlerLis.subscribe(pathplanner,1, chatterPosition);
+//    ros::Subscriber turnScrib=tHandlerLis.subscribe(robotturn,1,chatterCan);
+    posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition, 10);
+//    ros::Publisher turnPub=tHandlerPub.advertise<roycobot::turn>(robotturn,1000);
     ros::spin();
     return 0;
 }
