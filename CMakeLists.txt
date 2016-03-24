@@ -214,9 +214,14 @@ add_executable(rijden src/rijden.cpp)
 target_link_libraries(rijden ${catkin_LIBRARIES})
 add_dependencies(rijden labo_generate_messages_cpp)
 
+find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry ...)
+find_package(OpenCV REQUIRED)
+
+
 add_executable(imgProc src/imgProc.cpp)
 target_link_libraries(imgProc ${catkin_LIBRARIES})
 add_dependencies(imgProc labo_generate_messages_cpp)
+target_link_libraries(imgProc ${OpenCV_LIBS})
 
 find_package(PkgConfig)
 pkg_check_modules(LIBSERIAL REQUIRED libserialport)

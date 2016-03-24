@@ -51,6 +51,10 @@
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
 
+  <build_depend>image_geometry</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>OpenCV</build_depend>
+
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
