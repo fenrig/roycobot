@@ -202,6 +202,7 @@ void chatterPosition(const roycobot::position2d::ConstPtr& msg)
     }
 }
 
+/*
 void chatterCan(const roycobot::turn::ConstrPtr& msg)
 {
     if(msg->r == 666)
@@ -210,19 +211,20 @@ void chatterCan(const roycobot::turn::ConstrPtr& msg)
         cap>>inputFrame;
         double grads = findCan();
         grad = (int)grads;
-/*
+
         roycobot::turn sendmsg;
         sendmsg.r=grad;
         turnPub.publish(sendmsg);
 
         ros::spinOnce();
-*/
+
     }
     else
     {
         ROS_INFO("Turn calculated r: %u",msg->r);
     }
 }
+*/
 
 int main(int argc, char *argv[])
 {
