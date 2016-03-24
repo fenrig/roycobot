@@ -219,9 +219,8 @@ find_package(OpenCV REQUIRED)
 
 
 add_executable(imgProc src/imgProc.cpp)
-target_link_libraries(imgProc ${catkin_LIBRARIES})
+target_link_libraries(imgProc ${catkin_LIBRARIES} ${OpenCV_LIBS})
 add_dependencies(imgProc labo_generate_messages_cpp)
-target_link_libraries(imgProc ${OpenCV_LIBS})
 
 find_package(PkgConfig)
 pkg_check_modules(LIBSERIAL REQUIRED libserialport)
