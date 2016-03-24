@@ -5,7 +5,7 @@
 #include <opencv2/calib3d/calib3d.hpp>
 #include <iostream>
 #include <string.h>
-#include <cvdrawingutils.h>
+#include <aruco/cvdrawingutils.h>
 
 cv::Mat inputFrame;
 int grad;
