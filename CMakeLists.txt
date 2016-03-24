@@ -202,6 +202,12 @@ include_directories(
 ###############################################3
 include_directories(include ${catkin_INCLUDE_DIRS})
 
+SET(ARUCO_INCLUDE_DIRS ${ARUCO_PATH}/include/aruco )
+
+find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry)
+find_package(aruco REQUIRED )
+find_package(OpenCV REQUIRED )
+
 add_executable(pathplanner src/pathplanner.cpp)
 target_link_libraries(pathplanner ${catkin_LIBRARIES})
 add_dependencies(pathplanner labo_generate_messages_cpp)
@@ -214,18 +220,19 @@ add_executable(rijden src/rijden.cpp)
 target_link_libraries(rijden ${catkin_LIBRARIES})
 add_dependencies(rijden labo_generate_messages_cpp)
 
-find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry)
-find_package(OpenCV REQUIRED)
+
 
 
 add_executable(imgProc src/imgProc.cpp)
-target_link_libraries(imgProc ${catkin_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(imgProc ${catkin_LIBRARIES} ${OpenCV_LIBS} ${aruco_LIBS})
 add_dependencies(imgProc labo_generate_messages_cpp)
+add_dependencies(imgProc ${catkin_EXPORTED_TARGETS})
+
 
 find_package(PkgConfig)
 pkg_check_modules(LIBSERIAL REQUIRED libserialport)
 
-include_directories(${LIBSERIAL_INCLUDE_DIRS})
+include_directories(${LIBSERIAL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${ARUCO_INCLUDE_DIRS})
 link_directories(${LIBSERIAL_LIBRARY_DIRS})
 target_link_libraries(rijden ${LIBSERIAL_LIBRARIES})
 
