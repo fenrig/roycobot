@@ -39,6 +39,11 @@ void driveStop(void){
     chatter_sub_drive.publish(msg);
 }
 
+void driveInit(void){
+    DRIVEMACRO(useless, 0);
+    chatter_sub_drive.publish(msg);
+}
+
 #undef DRIVEMACRO
 // -----------------
 
@@ -80,6 +85,7 @@ int main(int argc, char **argv)
    * away the oldest ones.
    */
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
+   driveInit();
    
    while(true){
 	  driveBackward();
