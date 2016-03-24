@@ -76,6 +76,10 @@ void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::
         ROS_INFO("DRAAI Signaal ontvangen");
         draaien(signaal->waarde);
     }
+    else
+    {
+    	ROS_INFO("Vreemd signaal ontvangen");
+    }
 }
 
 int main(int argc, char **argv){
