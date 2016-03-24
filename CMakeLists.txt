@@ -214,7 +214,7 @@ add_executable(rijden src/rijden.cpp)
 target_link_libraries(rijden ${catkin_LIBRARIES})
 add_dependencies(rijden labo_generate_messages_cpp)
 
-find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry ...)
+find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry)
 find_package(OpenCV REQUIRED)
 
 
