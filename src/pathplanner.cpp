@@ -24,11 +24,11 @@ void driveBackward(void){
 }
 
 void driveTurnLeft(void){
-    DRIVEMACRO(draaien, 1);
+    DRIVEMACRO(draaien, -1);
 }
 
 void driveTurnRight(void){
-    DRIVEMACRO(draaien, -1);
+    DRIVEMACRO(draaien, 1);
 }
 
 void driveStop(void){

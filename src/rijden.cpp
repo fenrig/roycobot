@@ -54,12 +54,12 @@ void rijden(int waarde){
 
 void draaien(int waarde){
     if(waarde < 0){
-        strcpy(buf, "q -100 100\r");
+        strcpy(buf, "q -50 50\r");
     }
     else if(waarde > 0){
-        strcpy(buf, "q 100 -100\r");
+        strcpy(buf, "q 50 -50\r");
     }
-    sp_nonblocking_write(port, buf, 11);
+    sp_nonblocking_write(port, buf, 9);
 }
 
 void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::String::ConstPtr& msg){
