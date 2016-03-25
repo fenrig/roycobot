@@ -136,7 +136,11 @@ cv::Point2f positionDef()
     aruco::CameraParameters TheCameraParams;
     TheCameraParams.readFromXMLFile("/home/alarm/catkin_ws/src/roycobot/src/out_camera_params.yml");
     MDetector.detect(inputFrame,Markers,TheCameraParams,0.176);
-	    ROS_INFO("Test: marker.size = %d", Markers.size());
+	    
+    ROS_INFO("Test: marker.size = %d", Markers.size());
+    if(Markers.size() == 0)
+	goto lblret;
+
     for (unsigned int i=0; i<Markers.size(); i++)
     {
         Markers[i].draw(inputFrame,cv::Scalar(0,0,255),2);
@@ -184,10 +188,9 @@ cv::Point2f positionDef()
         }
         return pos;
     }
-    else
-    {
-        return cv::Point2f(-1,-1);
-    }
+
+lblret:
+    return cv::Point2f(-1,-1);
 }
 
 bool getPosition(roycobot::imgPosition::Request &req,
