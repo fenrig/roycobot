@@ -15,6 +15,7 @@
     chatter_sub_drive.publish(msg);
 
 ros::Publisher chatter_sub_drive;
+
 void driveForward(void){
     DRIVEMACRO(rijden, 1);
 }
@@ -35,11 +36,11 @@ void driveStop(void){
     DRIVEMACRO(stop, 0);
 }
 
-void driveInit(void){
-    DRIVEMACRO(useless, 0);
-}
-
 #undef DRIVEMACRO
+
+// --- Beeldverwerking ---
+ros::Publisher chatter_sub_img;
+
 // -----------------
 
 
@@ -67,6 +68,9 @@ int main(int argc, char **argv)
    // init ros node "Rijden"
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
    sleep(2);
+
+   // init ros node "Beeldverwerking"
+   chatter_sub_drive = n.advertise<
    
 
    // ros loop
