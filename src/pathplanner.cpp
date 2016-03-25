@@ -45,7 +45,7 @@ ros::ServiceClient imgPositionClient;
 struct position {
 	unsigned int x;
 	unsigned int y;
-}
+};
 
 bool getPosition(struct position *pos){
 	roycobot::imgPosition srv;
