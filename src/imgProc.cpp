@@ -236,7 +236,7 @@ void chatterCan(const roycobot::turn::ConstrPtr& msg)
 int main(int argc, char *argv[])
 {
     ros::init(argc,argv,"pathplanner");
-    ros::NodeHandle pHandlerLis,tHandlerLis,pHandlerPub,tHandlerPub;
+    ros::NodeHandle n;
     //posScrib=pHandlerLis.subscribe(pathplanning_img,1, chatterPosition);
 //    ros::Subscriber turnScrib=tHandlerLis.subscribe(robotturn,1,chatterCan);
     //posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition, 10);
