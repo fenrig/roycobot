@@ -204,7 +204,7 @@ bool getPosition(roycobot::imgPosition::Request &req,
     }
     else
     {
-        ROS_INFO("unknown command");
+        ROS_ERROR("unknown command");
 	return false;
     }
 }

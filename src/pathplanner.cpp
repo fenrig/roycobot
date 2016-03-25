@@ -1,7 +1,8 @@
 #include "ros/ros.h"
-#include "roycobot/position2d.h"
+#include "roycobot/imagePosition.h"
 #include "roycobot/rijsignaal.h"
 #include "topics.h"
+
 
 // --- sleep
 #include <unistd.h>
@@ -39,7 +40,27 @@ void driveStop(void){
 #undef DRIVEMACRO
 
 // --- Beeldverwerking ---
-ros::Publisher chatter_sub_img;
+ros::ServiceClient imgPositionClient;
+
+struct position {
+	unsigned int x;
+	unsigned int y;
+}
+
+bool getPosition(struct position *pos){
+	roycobot::imgPosition srv;
+	srv.request.cmd = "getPos";
+	if(imgPositionClient.call(srv)){
+		ROS_INFO("Position: ( x = %u , y = %u )", srv.response.x, srv.response.y)
+		pos->x = srv.response.x;
+		pos->y = srv.response.y;
+		return true;
+		
+	}else{
+		ROS_ERROR("Failed to call service position");
+		return false;
+	}
+}
 
 // -----------------
 
@@ -70,14 +91,12 @@ int main(int argc, char **argv)
    sleep(2);
 
    // init ros node "Beeldverwerking"
-   
+   imgPositionClient = n.serviceClient<roycobot::imgPosition>(robotposition);
+   struct position pos;
 
    // ros loop
    while(ros::ok()){
-	  driveTurnLeft();
-	  sleep(10);
-	  driveStop();
-	  return 0;
+	  getPosition(&pos);
    }
 
   return 0;
