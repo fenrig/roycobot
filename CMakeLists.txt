@@ -200,14 +200,14 @@ include_directories(
 # catkin_add_nosetests(test)
 
 ###############################################3
-include_directories(include ${catkin_INCLUDE_DIRS})
+#include_directories(include ${catkin_INCLUDE_DIRS})
 
 LIST(APPEND CMAKE_MODULE_PATH /usr/local/lib/cmake)
 
 SET(ARUCO_INCLUDE_DIRS ${ARUCO_PATH}/include/aruco )
 include_directories(${LIBSERIAL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${ARUCO_INCLUDE_DIRS})
 
-find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry)
+#find_package(catkin REQUIRED COMPONENTS cv_bridge image_geometry)
 find_package(aruco REQUIRED )
 find_package(OpenCV REQUIRED )
 
