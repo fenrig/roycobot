@@ -11,7 +11,6 @@
 
 cv::Mat inputFrame;
 int grad;
-cv::VideoCapture cap("0");
 cv::vector<cv::Point2f> grid;
 
 
@@ -131,7 +130,6 @@ double findCan()
 
 cv::Point2f positionDef()
 {
-    takepicture();
     vulCoord();
     aruco::MarkerDetector MDetector;
     cv::vector<aruco::Marker> Markers;
@@ -196,7 +194,7 @@ bool getPosition(roycobot::imgPosition::Request &req,
     {
         ROS_INFO("Calculating position");
         
-	cap >> inputFrame;
+	webcam >> inputFrame;
         
 	cv::Point2f point = positionDef();
         res.x= (uint)point.x;
