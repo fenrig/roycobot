@@ -136,6 +136,7 @@ cv::Point2f positionDef()
     aruco::CameraParameters TheCameraParams;
     TheCameraParams.readFromXMLFile("/home/alarm/catkin_ws/src/roycobot/src/out_camera_params.yml");
     MDetector.detect(inputFrame,Markers,TheCameraParams,0.176);
+    ROS_INFO("Test");
     for (unsigned int i=0; i<Markers.size(); i++)
     {
         Markers[i].draw(inputFrame,cv::Scalar(0,0,255),2);
