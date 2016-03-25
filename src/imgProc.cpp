@@ -247,8 +247,8 @@ int main(int argc, char *argv[])
     ros::ServiceServer service = n.advertiseService(robotposition, getPosition);
     
     webcam = cv::VideoCapture(0);
-    webcam.SetCaptureProperty(CV_CAP_PROP_FRAME_HEIGHT, 640);
-    webcam.SetCaptureProperty(CV_CAP_PROP_FRAME_WIDTH, 480);
+    webcam.set(CV_CAP_PROP_FRAME_HEIGHT, 640);
+    webcam.set(CV_CAP_PROP_FRAME_WIDTH, 480);
 
     ros::spin();
     return 0;
