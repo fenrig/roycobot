@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "topics.h"
-#include "roycobot/position2d.h"
+#include "roycobot/imagePosition.h"
 
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -186,25 +186,26 @@ cv::Point2f positionDef()
     }
 }
 
-void chatterPosition(const roycobot::position2d::ConstPtr& msg)
+bool getPosition(roycobot::imgPosition::Request &req,
+		 roycobot::imgPosition::Response &res)
 {
-    if(msg->x==-1 && msg->y ==-1)
+    if(req.cmd == "getPos")
     {
-        ROS_INFO("Please calculate your position");
+        ROS_INFO("Calculating position");
         
 	cap >> inputFrame;
         
 	cv::Point2f point = positionDef();
-        roycobot::position2d sendmsg;
-        sendmsg.x= (uint)point.x;
-        sendmsg.y= (uint)point.y;
-        posPub.publish(sendmsg);
+        res.x= (uint)point.x;
+        res.y= (uint)point.y;
 
-        ros::spinOnce();
+        ROS_INFO("POS: (x = %u ,y = %u )", res.x, res,y);
+	return true;
     }
     else
     {
-        ROS_INFO("Position calculated x: %u y: %u",msg->x,msg->y);
+        ROS_INFO("unknown command");
+	return false;
     }
 }
 
@@ -236,10 +237,12 @@ int main(int argc, char *argv[])
 {
     ros::init(argc,argv,"pathplanner");
     ros::NodeHandle pHandlerLis,tHandlerLis,pHandlerPub,tHandlerPub;
-    posScrib=pHandlerLis.subscribe(pathplanning_img,1, chatterPosition);
+    //posScrib=pHandlerLis.subscribe(pathplanning_img,1, chatterPosition);
 //    ros::Subscriber turnScrib=tHandlerLis.subscribe(robotturn,1,chatterCan);
-    posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition, 10);
+    //posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition, 10);
 //    ros::Publisher turnPub=tHandlerPub.advertise<roycobot::turn>(robotturn,1000);
+    ros::ServiceServer service = n.advertiseService(robotposition, getPosition);
+
     ros::spin();
     return 0;
 }

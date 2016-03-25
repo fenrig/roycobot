@@ -1,4 +1,4 @@
-string waarde
+string cmd
 ---
 uint32 x
 uint32 y
