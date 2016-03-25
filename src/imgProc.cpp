@@ -199,7 +199,7 @@ bool getPosition(roycobot::imgPosition::Request &req,
         res.x= (uint)point.x;
         res.y= (uint)point.y;
 
-        ROS_INFO("POS: (x = %u ,y = %u )", res.x, res,y);
+        ROS_INFO("POS: (x = %u ,y = %u )", res.x, res.y);
 	return true;
     }
     else
