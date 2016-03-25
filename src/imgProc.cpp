@@ -18,6 +18,10 @@ cv::vector<cv::Point2f> grid;
 #define boardX 0
 #define boardY 0
 
+cv::VideoCapture webcam;
+
+#define takepicture() webcam.read(inputFrame);
+
 void vulCoord()
 {
     cv::Point2f pt(96,13.2);
@@ -127,6 +131,7 @@ double findCan()
 
 cv::Point2f positionDef()
 {
+    takepicture();
     vulCoord();
     aruco::MarkerDetector MDetector;
     cv::vector<aruco::Marker> Markers;
@@ -240,6 +245,10 @@ int main(int argc, char *argv[])
     //posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition, 10);
 //    ros::Publisher turnPub=tHandlerPub.advertise<roycobot::turn>(robotturn,1000);
     ros::ServiceServer service = n.advertiseService(robotposition, getPosition);
+    
+    webcam = cv::VideoCapture(0);
+    webcam.setCaptureProperty(CV_CAP_PROP_FRAME_HEIGHT, 640);
+    webcam.setCaptureProperty(CV_CAP_PROP_FRAME_WIDTH, 480);
 
     ros::spin();
     return 0;
