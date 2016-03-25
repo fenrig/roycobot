@@ -14,8 +14,6 @@ int grad;
 cv::VideoCapture cap("0");
 cv::vector<cv::Point2f> grid;
 
-ros::Subscriber posScrib;
-ros::Publisher posPub;
 
 #define boardX 0
 #define boardY 0
@@ -133,7 +131,7 @@ cv::Point2f positionDef()
     aruco::MarkerDetector MDetector;
     cv::vector<aruco::Marker> Markers;
     aruco::CameraParameters TheCameraParams;
-    TheCameraParams.readFromXMLFile("out_camera_params.yml");
+    TheCameraParams.readFromXMLFile("/home/alarm/catkin_ws/src/roycobot/src/out_camera_params.yml");
     MDetector.detect(inputFrame,Markers,TheCameraParams,0.176);
     for (unsigned int i=0; i<Markers.size(); i++)
     {
