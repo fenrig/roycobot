@@ -51,7 +51,7 @@ bool getPosition(struct position *pos){
 	roycobot::imgPosition srv;
 	srv.request.cmd = "getPos";
 	if(imgPositionClient.call(srv)){
-		ROS_INFO("Position: ( x = %u , y = %u )", srv.response.x, srv.response.y)
+		ROS_INFO("Position: ( x = %u , y = %u )", srv.response.x, srv.response.y);
 		pos->x = srv.response.x;
 		pos->y = srv.response.y;
 		return true;
