@@ -136,8 +136,7 @@ cv::Point2f positionDef()
     aruco::CameraParameters TheCameraParams;
     TheCameraParams.readFromXMLFile("/home/alarm/catkin_ws/src/roycobot/src/out_camera_params.yml");
     MDetector.detect(inputFrame,Markers,TheCameraParams,0.176);
-	    ROS_INFO("Test");
-    cout(Markers.size());
+	    ROS_INFO("Test: marker.size = %d", Markers.size());
     for (unsigned int i=0; i<Markers.size(); i++)
     {
         Markers[i].draw(inputFrame,cv::Scalar(0,0,255),2);
@@ -146,6 +145,8 @@ cv::Point2f positionDef()
         Markers[i].glGetModelViewMatrix(modelview_matrix);
         ///cv::Mat modelV = Mat(4, 4, CV_32FC1, &modelview_matrix);
         ///modelV.inv();
+	ROS_INFO("i = %u", i);
+        
     }
     if (Markers[0].id == 110 || Markers[0].id == 114 || Markers[0].id == 125 || Markers[0].id == 129)
     {
