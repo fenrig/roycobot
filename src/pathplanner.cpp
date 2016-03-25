@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "roycobot/imagePosition.h"
+#include "roycobot/imgPosition.h"
 #include "roycobot/rijsignaal.h"
 #include "topics.h"
 

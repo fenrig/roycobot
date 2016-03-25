@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "topics.h"
-#include "roycobot/imagePosition.h"
+#include "roycobot/imgPosition.h"
 
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
