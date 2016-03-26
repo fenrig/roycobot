@@ -9,15 +9,18 @@
 #include <string.h>
 #include <aruco/cvdrawingutils.h>
 
+cv::VideoCapture webcam;
 cv::Mat inputFrame;
 int grad;
 cv::vector<cv::Point2f> grid;
 
 
-#define boardX 0
-#define boardY 0
 
-cv::VideoCapture webcam;
+#define boardWidth 96
+#define boardHeight 160
+#define boardX boardWidth
+#define boardY boardHeight
+
 
 #define takepicture() webcam.read(inputFrame);
 
@@ -137,9 +140,10 @@ cv::Point2f positionDef()
     TheCameraParams.readFromXMLFile("/home/alarm/catkin_ws/src/roycobot/src/out_camera_params.yml");
     MDetector.detect(inputFrame,Markers,TheCameraParams,0.176);
 	    
-    ROS_INFO("Test: marker.size = %d", Markers.size());
-    if(Markers.size() == 0)
-	goto lblret;
+    if(Markers.size() == 0){
+	ROS_INFO("Test: marker.size == %d failed", Markers.size());
+        goto lblret;
+    }
 
     for (unsigned int i=0; i<Markers.size(); i++)
     {
