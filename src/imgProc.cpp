@@ -9,11 +9,12 @@
 #include <string.h>
 #include <aruco/cvdrawingutils.h>
 
+#include <limits.h>
+
 cv::VideoCapture webcam;
 cv::Mat inputFrame;
 int grad;
 cv::vector<cv::Point2f> grid;
-
 
 
 #define boardWidth 96
@@ -194,7 +195,7 @@ cv::Point2f positionDef()
     }
 
 lblret:
-    return cv::Point2f(-1,-1);
+    return cv::Point2f(UINT_MAX,UINT_MAX);
 }
 
 bool getPosition(roycobot::imgPosition::Request &req,
