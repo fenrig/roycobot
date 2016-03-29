@@ -280,8 +280,8 @@ int main(int argc, char *argv[])
     ros::ServiceServer service = n.advertiseService(robotposition, getPosition);
     
     webcam = cv::VideoCapture(0);
-    webcam.set(CV_CAP_PROP_FRAME_HEIGHT, 640);
-    webcam.set(CV_CAP_PROP_FRAME_WIDTH, 480);
+    webcam.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+    webcam.set(CV_CAP_PROP_FRAME_WIDTH, 640);
 
     ros::spin();
     return 0;
