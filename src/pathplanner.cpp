@@ -97,6 +97,8 @@ int main(int argc, char **argv)
    // ros loop
    while(ros::ok()){
 	  getPosition(&pos);
+	  driveTurnLeft();
+	  sleep(1);
    }
 
   return 0;
