@@ -35,7 +35,10 @@ void takepicture(){
 	ostringstream convert;
 	convert << to_string(count);
 
-	String namefile = "/home/alarm/driveandcapture/test" + convert.str() + ".png";	
+	String namefile = "/home/alarm/driveandcapture/test" + convert.str() + ".png";
+
+	ROS_INFO(namefile);	
+
 	webcam.read(inputFrame); 
 
 	imwrite(namefile, inputFrame, compression_params);
