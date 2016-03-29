@@ -22,8 +22,25 @@ cv::vector<cv::Point2f> grid;
 #define boardX boardWidth
 #define boardY boardHeight
 
+#define DEBUG 2
 
-#define takepicture() webcam.read(inputFrame);
+
+void takepicture(){ 
+	static unsigned int count = 1;
+	
+	    vector<int> compression_params;
+	    compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+	    compression_params.push_back(1);
+
+	ostringstream convert;
+	convert << to_string(count);
+
+	String namefile = "/home/alarm/driveandcapture/test" + convert.str() + ".png";	
+	webcam.read(inputFrame); 
+
+	imwrite(namefile, inputFrame, compression_params);
+	count++;
+}
 
 void vulCoord()
 {
@@ -204,8 +221,12 @@ bool getPosition(roycobot::imgPosition::Request &req,
     if(req.cmd == "getPos")
     {
         ROS_INFO("Calculating position");
-        
+
+#if ( DEBUG && 2)
+	takepicture();
+#else
 	webcam >> inputFrame;
+#endif
         
 	cv::Point2f point = positionDef();
         res.x= (uint)point.x;
