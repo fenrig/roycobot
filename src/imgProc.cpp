@@ -170,8 +170,7 @@ cv::Point2f positionDef()
     {
         Markers[i].draw(inputFrame,cv::Scalar(0,0,255),2);
         Markers[i].calculateExtrinsics(9.021597938, TheCameraParams);
-        double modelview_matrix[16];
-        Markers[i].glGetModelViewMatrix(modelview_matrix);
+
         ///cv::Mat modelV = Mat(4, 4, CV_32FC1, &modelview_matrix);
         ///modelV.inv();
 	ROS_INFO("i = %u", i);
