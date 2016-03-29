@@ -47,6 +47,8 @@ struct position {
 	unsigned int y;
 };
 
+ros::ServiceClient imgCanPositionClient;
+
 bool getPosition(struct position *pos){
 	roycobot::imgPosition srv;
 	srv.request.cmd = "getPos";
@@ -93,6 +95,7 @@ int main(int argc, char **argv)
    // init ros node "Beeldverwerking"
    imgPositionClient = n.serviceClient<roycobot::imgPosition>(robotposition);
    struct position pos;
+   imgCanPositionClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
 
    // ros loop
    while(ros::ok()){

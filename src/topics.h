@@ -1,3 +1,4 @@
+#define canposition			"can_position"
 #define robotposition 		  	"position"
 #define robotdrive           		"robotdrive"  
 #define otherrobotposition 		"otherposition"

@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "topics.h"
 #include "roycobot/imgPosition.h"
+#include "roycobot/imgCanPosition.h"
 
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -184,7 +185,7 @@ cv::Point2f positionDef()
         }
         if (Markers.size() == 2)
         {
-            return cv::Point2f(404,404);
+            goto lblret;
         }
     }
     if (Markers.size() >= 2 && Markers[0].id != 110 && Markers[0].id != 114 && Markers[0].id != 125 && Markers[0].id != 129)
@@ -244,29 +245,32 @@ bool getPosition(roycobot::imgPosition::Request &req,
     }
 }
 
-/*
-void chatterCan(const roycobot::turn::ConstrPtr& msg)
+bool chatterCan(roycobot::imgCanPosition::Request &req,
+		 roycobot::imgCanPosition::Response &res)
 {
-    if(msg->r == 666)
+    if(req.cmd == "findcan")
     {
         ROS_INFO("Please calculate cans position");
-        cap>>inputFrame;
-        double grads = findCan();
-        grad = (int)grads;
+
+#if ( DEBUG && 2)
+	takepicture();
+#else
+	webcam >> inputFrame;
+#endif
 
         roycobot::turn sendmsg;
-        sendmsg.r=grad;
-        turnPub.publish(sendmsg);
+        res.rot = (int ) findCan();
 
-        ros::spinOnce();
+	ROS_INFO("POS: (rot = %d)", res.bot);
 
+	return true;
     }
     else
     {
         ROS_INFO("Turn calculated r: %u",msg->r);
+	return false;
     }
 }
-*/
 
 int main(int argc, char *argv[])
 {
@@ -276,7 +280,8 @@ int main(int argc, char *argv[])
 //    ros::Subscriber turnScrib=tHandlerLis.subscribe(robotturn,1,chatterCan);
     //posPub= pHandlerPub.advertise<roycobot::position2d>(robotposition, 10);
 //    ros::Publisher turnPub=tHandlerPub.advertise<roycobot::turn>(robotturn,1000);
-    ros::ServiceServer service = n.advertiseService(robotposition, getPosition);
+    ros::ServiceServer serviceRobotPos = n.advertiseService(robotposition, getPosition);
+    ros::ServiceServer serviceCanPos = n.advertiseService(canposition, chatterCan);
     
     webcam = cv::VideoCapture(0);
     webcam.set(CV_CAP_PROP_FRAME_HEIGHT, 480);

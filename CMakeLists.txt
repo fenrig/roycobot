@@ -216,9 +216,9 @@ include_directories(${LIBSERIAL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${ARUCO_INC
 find_package(aruco REQUIRED )
 find_package(OpenCV REQUIRED )
 
-add_executable(pathplanner src/pathplanner.cpp)
-target_link_libraries(pathplanner ${catkin_LIBRARIES})
-add_dependencies(pathplanner labo_generate_messages_cpp)
+#add_executable(pathplanner src/pathplanner.cpp)
+#target_link_libraries(pathplanner ${catkin_LIBRARIES})
+#add_dependencies(pathplanner labo_generate_messages_cpp)
 
 #add_executable(pathplanner_tester src/pathplanner_tester.cpp)
 #target_link_libraries(pathplanner_tester ${catkin_LIBRARIES})
@@ -231,9 +231,9 @@ add_dependencies(rijden labo_generate_messages_cpp)
 
 
 
-add_executable(imgProc src/imgProc.cpp)
-target_link_libraries(imgProc ${catkin_LIBRARIES} ${OpenCV_LIBS} ${aruco_LIBS})
-add_dependencies(imgProc labo_generate_messages_cpp)
+#add_executable(imgProc src/imgProc.cpp)
+#target_link_libraries(imgProc ${catkin_LIBRARIES} ${OpenCV_LIBS} ${aruco_LIBS})
+#add_dependencies(imgProc labo_generate_messages_cpp)
 #add_dependencies(imgProc ${catkin_EXPORTED_TARGETS})
 
 
