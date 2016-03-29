@@ -149,7 +149,7 @@ double findCan()
     }
     else
     {
-        return 404;
+        return INT_MAX;
     }
 }
 
@@ -267,7 +267,7 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
     }
     else
     {
-        ROS_INFO("Turn calculated r: %u",msg->r);
+        ROS_INFO("Vreemde commando",msg->r);
 	return false;
     }
 }

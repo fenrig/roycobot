@@ -2,7 +2,7 @@
 #include "roycobot/imgPosition.h"
 #include "roycobot/rijsignaal.h"
 #include "topics.h"
-
+#include <limits.h>
 
 // --- sleep
 #include <unistd.h>
@@ -47,8 +47,6 @@ struct position {
 	unsigned int y;
 };
 
-ros::ServiceClient imgCanPositionClient;
-
 bool getPosition(struct position *pos){
 	roycobot::imgPosition srv;
 	srv.request.cmd = "getPos";
@@ -64,6 +62,20 @@ bool getPosition(struct position *pos){
 	}
 }
 
+ros::ServiceClient imgCanPositionClient;
+
+int getCanPosition(void){
+	roycobot::imgCanPosition srv;
+	srv.request.cmd = "findcan";
+	if(imgCanPositionClient.call(srv)){
+		ROS_INFO("Position: ( rot = %d )", srv.response.rot);
+		return srv.response.rot;
+		
+	}else{
+		ROS_ERROR("Failed to call service position");
+		return INT_MAX;
+	}
+}
 // -----------------
 
 
