@@ -25,7 +25,7 @@ cv::vector<cv::Point2f> grid;
 #define DEBUG 2
 
 
-void takepicture(){ 
+void takepicture(void){ 
 	static unsigned int count = 1;
 	
 	    vector<int> compression_params;
@@ -33,9 +33,9 @@ void takepicture(){
 	    compression_params.push_back(1);
 
 	ostringstream convert;
-	convert << to_string(count);
+	convert << count;
 
-	String namefile = "/home/alarm/driveandcapture/test" + convert.str() + ".png";
+	std::string namefile = "/home/alarm/driveandcapture/test" + convert.str() + ".png";
 
 	ROS_INFO(namefile);	
 
