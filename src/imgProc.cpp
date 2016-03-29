@@ -37,7 +37,7 @@ void takepicture(void){
 
 	std::string namefile = "/home/alarm/driveandcapture/test" + convert.str() + ".png";
 
-	ROS_INFO(namefile);	
+	ROS_INFO("Count van foto: %u \n", count);	
 
 	webcam.read(inputFrame); 
 
