@@ -8,7 +8,7 @@
 // --- sleep
 #include <unistd.h>
 #define SLEEP(seconds) usleep(seconds * 1000000);
-#define msleep(mseconds) usleep(seconds * 1000)
+#define msleep(mseconds) usleep(mseconds * 1000)
 
 // --- Rijd ROS node ---
 #define DRIVEMACRO(name, value) \
