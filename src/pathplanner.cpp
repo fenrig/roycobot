@@ -108,11 +108,13 @@ int main(int argc, char **argv)
    imgPositionClient = n.serviceClient<roycobot::imgPosition>(robotposition);
    struct position pos;
    imgCanPositionClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
+   int rotation;
 
    // ros loop
    while(ros::ok()){
 //	  driveStop();
 	  getPosition(&pos);
+	  rotation = getCanPosition();
 	  sleep(1);
    }
 
