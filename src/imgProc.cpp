@@ -261,13 +261,13 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
         roycobot::turn sendmsg;
         res.rot = (int ) findCan();
 
-	ROS_INFO("POS: (rot = %d)", res.bot);
+	ROS_INFO("POS: (rot = %d)", res.rot);
 
 	return true;
     }
     else
     {
-        ROS_INFO("Vreemde commando",msg->r);
+        ROS_INFO("Vreemde commando");
 	return false;
     }
 }
