@@ -37,6 +37,14 @@ void driveStop(void){
     DRIVEMACRO(stop, 0);
 }
 
+void grijpOpen(void){
+    DRIVEMACRO(grijpen, 0);
+}
+
+void grijpGesloten(void){
+    DRIVEMACRO(grijpen, 1);
+}
+
 #undef DRIVEMACRO
 
 // --- Beeldverwerking ---
@@ -103,6 +111,8 @@ int main(int argc, char **argv)
    // init ros node "Rijden"
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
    sleep(2);
+   grijpOpen();
+   driveStop();
 
    // init ros node "Beeldverwerking"
    imgPositionClient = n.serviceClient<roycobot::imgPosition>(robotposition);

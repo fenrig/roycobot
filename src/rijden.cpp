@@ -45,7 +45,7 @@ void rijden(int waarde){
 		strcpy(buf, "q 100 100\r");
 		sp_nonblocking_write(port, buf, 10);
 	}
-	else if(waarde < 0){
+	else{
     		strcpy(buf, "q -100 -100\r");
 		sp_nonblocking_write(port, buf, 12);
 	}
@@ -56,10 +56,19 @@ void draaien(int waarde){
     if(waarde < 0){
         strcpy(buf, "q -50 50\r");
     }
-    else if(waarde > 0){
+    else{
         strcpy(buf, "q 50 -50\r");
     }
     sp_nonblocking_write(port, buf, 9);
+}
+
+void grijpen(int waarde){
+    if(waarde <= 0){
+    	strcpy(buf, "g 0\r\0");
+    }else{
+    	strcpy(buf, "g 1\r\0");
+    }
+    sp_nonblocking_write(port, buf, 4);
 }
 
 void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::String::ConstPtr& msg){
@@ -75,6 +84,10 @@ void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::
     else if(signaal->naam == "draaien"){
         ROS_INFO("DRAAI Signaal ontvangen");
         draaien(signaal->waarde);
+    }
+    else if(signaal->naam == "grijpen"){
+    	ROS_INFO("DRAAI Signaal ontvangen");
+        grijpen(signaal->waarde);
     }
     else
     {
