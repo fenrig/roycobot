@@ -23,7 +23,7 @@ cv::vector<cv::Point2f> grid;
 #define boardX boardWidth
 #define boardY boardHeight
 
-#define DEBUG 0
+#define DEBUG 2
 
 
 void takepicture(void){ 
