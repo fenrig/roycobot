@@ -258,7 +258,6 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
 	webcam >> inputFrame;
 #endif
 
-        roycobot::turn sendmsg;
         res.rot = (int ) findCan();
 
 	ROS_INFO("POS: (rot = %d)", res.rot);
