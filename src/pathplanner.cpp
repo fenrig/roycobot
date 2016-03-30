@@ -8,6 +8,7 @@
 // --- sleep
 #include <unistd.h>
 #define SLEEP(seconds) usleep(seconds * 1000000);
+#define msleep(mseconds) usleep(seconds * 1000)
 
 // --- Rijd ROS node ---
 #define DRIVEMACRO(name, value) \
@@ -128,25 +129,25 @@ int main(int argc, char **argv)
 	  rotation = getCanPosition();
 	  if(rotation == INT_MAX){
 	      driveTurnLeft();
-	      usleep(1500);
+	      msleep(1500);
           }else if(rotation == 0){
 		driveForward();
-		usleep(500);
+		msleep(500);
 	  }else if(rotation > 0){
 		if(rotation < 6){
 			driveTurnLeft();
-			usleep(500);
+			msleep(500);
 		}else{
 			driveTurnLeft();
-			usleep(1500);		
+			msleep(1500);		
 		}
 	  }else if(rotation < 0){
 	  	if(rotation > -6){
 			driveTurnRight();
-			usleep(500);		
+			msleep(500);		
 		}else{
 			driveTurnRight();
-			usleep(1500);		
+			msleep(1500);		
 		}
           }
 	  driveStop();
