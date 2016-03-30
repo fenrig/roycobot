@@ -86,7 +86,7 @@ void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::
         draaien(signaal->waarde);
     }
     else if(signaal->naam == "grijpen"){
-    	ROS_INFO("DRAAI Signaal ontvangen");
+    	ROS_INFO("GRIJP Signaal ontvangen");
         grijpen(signaal->waarde);
     }
     else

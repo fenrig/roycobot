@@ -124,9 +124,32 @@ int main(int argc, char **argv)
    // ros loop
    while(ros::ok()){
 //	  driveStop();
-	  getPosition(&pos);
+//	  getPosition(&pos);
 	  rotation = getCanPosition();
-	  sleep(1);
+	  if(rotation == INT_MAX){
+	      driveTurnLeft();
+	      sleep(3);
+          }else if(rotation == 0){
+		driveForward();
+		sleep(2);
+	  }else if(rotation > 0){
+		if(rotation < 6){
+			driveTurnLeft();
+			sleep(1);
+		}else{
+			driveTurnLeft();
+			sleep(3);		
+		}
+	  }else if(rotation < 0){
+	  	if(rotation > -6){
+			driveTurnRight();
+			sleep(1);		
+		}else{
+			driveTurnRight();
+			sleep(3);		
+		}
+          }
+	  driveStop();
    }
 
   return 0;
