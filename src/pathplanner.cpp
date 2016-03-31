@@ -133,16 +133,16 @@ int main(int argc, char **argv)
           }else if(rotation == 0){
 		driveForward();
 		msleep(500);
-	  }else if(rotation > 0){
-		if(rotation < 6){
+	  }else if(rotation < 0){
+		if(rotation > -6){
 			driveTurnLeft();
 			msleep(250);
 		}else{
 			driveTurnLeft();
 			msleep(750);		
 		}
-	  }else if(rotation < 0){
-	  	if(rotation > -6){
+	  }else if(rotation > 0){
+	  	if(rotation < 6){
 			driveTurnRight();
 			msleep(250);		
 		}else{
