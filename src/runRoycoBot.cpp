@@ -63,8 +63,6 @@ int main(void){
 	sigaction(SIGINT, &sigIntHandler, NULL);
 
 	usleep(1000000);
-	close(0);
-	dup((int)fopen("rijden.txt", "r"));
 	pause();
 
 	return 0;
