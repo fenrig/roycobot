@@ -49,6 +49,10 @@ int main(void){
 	sigIntHandler.sa_flags = 0;
 
 	sigaction(SIGINT, &sigIntHandler, NULL);
+
+	usleep(1000000);
+	close(stdout);
+	dup(fopen("rijden.txt", "r"));
 	pause();
 
 	return 0;
