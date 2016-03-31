@@ -151,7 +151,7 @@ int main(int argc, char **argv)
 		}
           }
 	  driveStop();
-	  sleep(1);
+	  msleep(500);
    }
 
   return 0;
