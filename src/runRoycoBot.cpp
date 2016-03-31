@@ -7,6 +7,7 @@
 pid_t procRijden;
 pid_t procImgproc;
 pid_t procPathplanner;
+pid_t procRosCore;
 
 void my_handler(int s){
            printf("Caught signal %d\n",s);
@@ -18,6 +19,16 @@ void my_handler(int s){
 
 int main(void){
 	int status;
+
+	procRosCore = fork();
+	if(procRosCore == 0){
+		close(1);
+		dup((int)fopen("roscore.txt", "w+"));
+		int status = system("roscore");
+		exit(0);	
+	}
+
+	usleep(15000000);
 
 	procRijden = fork();
 	if(procRijden == 0){
