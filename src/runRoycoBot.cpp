@@ -14,6 +14,7 @@ void my_handler(int s){
            kill(procRijden, SIGKILL);
 	   kill(procImgproc, SIGKILL);
 	   kill(procPathplanner, SIGKILL);
+	   kill(procRosCore, SIGKILL);
 	   exit(0);
 }
 
