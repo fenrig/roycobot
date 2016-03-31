@@ -52,7 +52,7 @@ int main(void){
 
 	usleep(1000000);
 	close(0);
-	dup(fopen("rijden.txt", "r"));
+	dup((int)fopen("rijden.txt", "r"));
 	pause();
 
 	return 0;
