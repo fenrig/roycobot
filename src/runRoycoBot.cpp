@@ -21,24 +21,24 @@ int main(void){
 
 	procRijden = fork();
 	if(procRijden == 0){
-		close(stdout);
-		dup(fopen("rijden.txt", "w+"));
+		close(1);
+		dup((int)fopen("rijden.txt", "w+"));
 		int status = system("rosrun roycobot rijden");
 		exit(0);
 	}
 
 	procImgproc = fork();
 	if(procImgproc == 0){
-		close(stdout);
-		dup(fopen("imgProc.txt", "w+"));
+		close(1);
+		dup((int)fopen("imgProc.txt", "w+"));
 		int status = system("rosrun roycobot imgProc");
 		exit(0);
 	}
 
 	procPathplanner = fork();
 	if(procPathplanner == 0){
-		close(stdout);
-		dup(fopen("pathplanner.txt", "w+"));
+		close(1);
+		dup((int)fopen("pathplanner.txt", "w+"));
 		int status = system("rosrun roycobot pathplanner");
 		exit(0);
 	}
