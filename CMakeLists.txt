@@ -217,9 +217,9 @@ include_directories(${LIBSERIAL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${ARUCO_INC
 find_package(aruco REQUIRED )
 find_package(OpenCV REQUIRED )
 
-add_executable(rijden src/runRoycoBot.cpp)
-target_link_libraries(pathplanner ${catkin_LIBRARIES})
-add_dependencies(pathplanner labo_generate_messages_cpp)
+add_executable(runRoycoBot src/runRoycoBot.cpp)
+target_link_libraries(runRoycoBot ${catkin_LIBRARIES})
+add_dependencies(runRoycoBot labo_generate_messages_cpp)
 
 add_executable(pathplanner src/pathplanner.cpp)
 target_link_libraries(pathplanner ${catkin_LIBRARIES})
