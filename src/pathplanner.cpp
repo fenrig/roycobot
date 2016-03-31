@@ -129,25 +129,25 @@ int main(int argc, char **argv)
 	  rotation = getCanPosition();
 	  if(rotation == INT_MAX){
 	      driveTurnLeft();
-	      msleep(500);
+	      msleep(600);
           }else if(rotation == 0){
 		driveForward();
-		msleep(500);
+		msleep(750);
 	  }else if(rotation < 0){
-		if(rotation > -6){
+		if(rotation > -12){
 			driveTurnLeft();
-			msleep(250);
+			msleep(300);
 		}else{
 			driveTurnLeft();
-			msleep(750);		
+			msleep(600);		
 		}
 	  }else if(rotation > 0){
-	  	if(rotation < 6){
+	  	if(rotation < 12){
 			driveTurnRight();
-			msleep(250);		
+			msleep(300);		
 		}else{
 			driveTurnRight();
-			msleep(750);		
+			msleep(600);		
 		}
           }
 	  driveStop();
