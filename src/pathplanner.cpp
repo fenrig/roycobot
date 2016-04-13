@@ -149,7 +149,7 @@ int main(int argc, char **argv)
 	  if(rotation == INT_MAX){
 	      driveTurnLeft();
 	      msleep(1000);
-          }else if(rotation <= 3 && rotation >= -3){
+          }else if(rotation < 3 && rotation > -3){
                 distance = getCanDistance();
                 if(distance < 300){
 		        driveForward();
@@ -169,18 +169,18 @@ int main(int argc, char **argv)
 	  }else if(rotation < 0){
 		if(rotation > -8){
 			driveTurnLeft();
-			msleep(450);
+			msleep(600);
 		}else{
 			driveTurnLeft();
-			msleep(650);		
+			msleep(800);		
 		}
 	  }else if(rotation > 0){
 	  	if(rotation < 8){
 			driveTurnRight();
-			msleep(450);		
+			msleep(600);		
 		}else{
 			driveTurnRight();
-			msleep(650);		
+			msleep(800);		
 		}
           }
 	  driveStop();
