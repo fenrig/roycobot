@@ -195,6 +195,9 @@ int main(int argc, char **argv)
                         driveTurnRight();
                         SLEEP(40);
                         state = GOTCAN;
+                }else{
+                       driveForward();
+                        msleep(800); 
                 }
                 driveStop();
 	        msleep(100);
