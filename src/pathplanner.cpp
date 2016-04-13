@@ -127,9 +127,7 @@ int main(int argc, char **argv)
    while(ros::ok()){
 //	  driveStop();
 //	  getPosition(&pos);
-          for(frame = 0; frame < 5; frame++){
-	        rotation = getCanPosition();
-	  }
+	  rotation = getCanPosition();
 	  if(rotation == INT_MAX){
 	      driveTurnLeft();
 	      msleep(1200);

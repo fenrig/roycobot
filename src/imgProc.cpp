@@ -23,7 +23,7 @@ cv::vector<cv::Point2f> grid;
 #define boardX boardWidth
 #define boardY boardHeight
 
-#define DEBUG 2
+#define DEBUG 0
 
 
 void takepicture(void){ 
@@ -224,12 +224,15 @@ bool getPosition(roycobot::imgPosition::Request &req,
     if(req.cmd == "getPos")
     {
         ROS_INFO("Calculating position");
-
+        
+        int frame = 0;
+        for(; frame < 4; frame++){
 #if ( DEBUG && 2)
 	takepicture();
 #else
 	webcam >> inputFrame;
 #endif
+        }
         
 	cv::Point2f point = positionDef();
         res.x= (uint)point.x;
@@ -252,12 +255,14 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
     {
         ROS_INFO("Please calculate cans position");
 
+    int frame = 0;
+    for(; frame < 4; frame++){
 #if ( DEBUG && 2)
 	takepicture();
 #else
 	webcam >> inputFrame;
 #endif
-
+     }
         res.rot = (int ) findCan();
 
 	ROS_INFO("POS: (rot = %d)", res.rot);
