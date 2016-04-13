@@ -156,10 +156,10 @@ int main(int argc, char **argv)
 		        msleep(1000);
 		}else if(distance > 450){
 		        driveForward();
-		        msleep(300);
+		        msleep(450);
 		}else if(distance > 500){
 		       driveForward();
-		        msleep(200); 
+		        msleep(300); 
 		}else if(distance > 600){
 		        grijpGesloten();
 		        driveTurnRight();
@@ -169,18 +169,18 @@ int main(int argc, char **argv)
 	  }else if(rotation < 0){
 		if(rotation > -8){
 			driveTurnLeft();
-			msleep(300);
+			msleep(450);
 		}else{
 			driveTurnLeft();
-			msleep(600);		
+			msleep(650);		
 		}
 	  }else if(rotation > 0){
 	  	if(rotation < 8){
 			driveTurnRight();
-			msleep(300);		
+			msleep(450);		
 		}else{
 			driveTurnRight();
-			msleep(600);		
+			msleep(650);		
 		}
           }
 	  driveStop();
