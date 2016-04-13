@@ -141,12 +141,6 @@ int main(int argc, char **argv)
    int rotation;
    unsigned int frame;
    
-   while(ros::ok()){
-        distance = getCanDistance();
-        
-   }
-   return 0;
-   
    // ros loop
    while(ros::ok()){
 //	  driveStop();
