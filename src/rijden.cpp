@@ -71,6 +71,16 @@ void grijpen(int waarde){
     sp_nonblocking_write(port, buf, 4);
 }
 
+void afstand (){
+	strcpy(buf, "u\r\0");
+	sp_nonblocking_write(port, buf, 2);
+	sleep(2);
+	printf("Gedaan met slapen");
+	sp_blocking_read(port, buf, 10, 100);
+	printf("Port uitgelezen");
+	printf("Bufferdata: %s", buf);
+}
+
 void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::String::ConstPtr& msg){
 ///Binnengekomen bericht: msg->data.c_str()
     if(signaal->naam == "stop"){
@@ -112,6 +122,9 @@ int main(int argc, char **argv){
 		if(sp_open(port, SP_MODE_READ_WRITE) == SP_OK){
 			sp_set_baudrate(port, 38400);
 			printf("Port Found: %s\n", sp_get_port_name(port));
+			while (1){
+				afstand();
+			}
 			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
 			ros::spin();
 			return 0;

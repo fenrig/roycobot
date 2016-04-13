@@ -30,8 +30,8 @@ struct sp_port *port;
 
 
 void stop(void){
-    strcpy(buf, "q 0 0");
-    sp_nonblocking_write(port, buf, sizeof(buf));
+    strcpy(buf, "q 0 0\r");
+    sp_nonblocking_write(port, buf, 6);
 
 }
 
@@ -42,22 +42,40 @@ void rijden(int waarde){
 ///[speed right -100 –- 100] speed left motor right motor
 /// --> serieel sturen
 	if(waarde > 0){
-		strcpy(buf, "q 100 100");
+		strcpy(buf, "q 100 100\r");
+		sp_nonblocking_write(port, buf, 10);
 	}
-	else if(waarde < 0){
-    		strcpy(buf, "q -100 -100");
+	else{
+    		strcpy(buf, "q -100 -100\r");
+		sp_nonblocking_write(port, buf, 12);
 	}
-    sp_nonblocking_write(port, buf, sizeof(buf));
+
 }
 
 void draaien(int waarde){
     if(waarde < 0){
-        strcpy(buf, "q -10 10");
+        strcpy(buf, "q -50 50\r");
     }
-    else if(waarde > 0){
-        strcpy(buf, "q 10 -10");
+    else{
+        strcpy(buf, "q 50 -50\r");
     }
-    sp_nonblocking_write(port, buf, sizeof(buf));
+    sp_nonblocking_write(port, buf, 9);
+}
+
+void grijpen(int waarde){
+    if(waarde <= 0){
+    	strcpy(buf, "g 0\r\0");
+    }else{
+    	strcpy(buf, "g 1\r\0");
+    }
+    sp_nonblocking_write(port, buf, 4);
+}
+
+int afstand (){
+	strcpy(buf, "u\r\0");
+	sp_nonblocking_write(port, buf, 2);
+	sleep(2);
+	
 }
 
 void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::String::ConstPtr& msg){
@@ -74,6 +92,14 @@ void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::
         ROS_INFO("DRAAI Signaal ontvangen");
         draaien(signaal->waarde);
     }
+    else if(signaal->naam == "grijpen"){
+    	ROS_INFO("GRIJP Signaal ontvangen");
+        grijpen(signaal->waarde);
+    }
+    else
+    {
+    	ROS_INFO("Vreemd signaal ontvangen");
+    }
 }
 
 int main(int argc, char **argv){
@@ -81,7 +107,7 @@ int main(int argc, char **argv){
 	printf("start\n");    
     ros::init(argc, argv, "rijden");
     ros::NodeHandle n;
-    //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("pathplanning", 1000);
+    //ros::Publisher chatter_pub = n.advertise<std_msgs::String>(pathplanning, 10);
     
     struct sp_port **ports;
 
@@ -90,24 +116,17 @@ int main(int argc, char **argv){
 	printf("Possible port: %s\n", sp_get_port_name(ports[i]));
 	if(strcmp(sp_get_port_name(ports[i]), "/dev/ttyUSB0") == 0){
 		port = ports[i];
-		sp_set_baudrate(port, 38400);
-		printf("Port Found: %s\n", sp_get_port_name(port));
-		draaien(1);
-		sleep(3000);
-		stop();
-		rijden(20);
-		sleep(2000);
-		stop();
-		break;
+		if(sp_open(port, SP_MODE_READ_WRITE) == SP_OK){
+			sp_set_baudrate(port, 38400);
+			printf("Port Found: %s\n", sp_get_port_name(port));
+			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
+			ros::spin();
+			return 0;
+		
+		}else{
+			printf("Kon poort niet openen\n");		
+		}
 	}
-    }
-	printf("the end\n");    
-    int count = 0;
-    ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(pathplanning, 1000, Ontvanger);
-    ros::Rate loop_rate(10);
-    while (ros::ok()){
-        //Verzender();
-        ros::spinOnce();
-    }
-    return 0;
+   }
+    return 1;
 }
