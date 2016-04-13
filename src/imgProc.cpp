@@ -17,8 +17,6 @@ cv::Mat inputFrame;
 int grad;
 cv::vector<cv::Point2f> grid;
 
-
-
 #define aantalfotostrekken 4 
 #define boardWidth 96
 #define boardHeight 160

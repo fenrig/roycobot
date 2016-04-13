@@ -9,6 +9,8 @@
 #include <stddef.h>
 #include <stdio.h>
 
+#include "roycobot/imgCanPosition.h"
+
 using namespace std_msgs;
 using namespace ros;
 using namespace std;
@@ -71,14 +73,14 @@ void grijpen(int waarde){
     sp_nonblocking_write(port, buf, 4);
 }
 
-void afstand (){
+int afstand (){
 	strcpy(buf, "u\r\0");
 	sp_nonblocking_write(port, buf, 2);
 	sleep(2);
-	printf("Gedaan met slapen");
 	sp_blocking_read(port, buf, 10, 100);
-	printf("Port uitgelezen");
-	printf("Bufferdata: %s", buf);
+	ROS_INFO("Bufferdata: %s", buf+14);
+        
+        return atoi(buf+14);
 }
 
 void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::String::ConstPtr& msg){
@@ -105,6 +107,23 @@ void Ontvanger(const roycobot::rijsignaal::ConstPtr& signaal){//const std_msgs::
     }
 }
 
+bool chatterCan(roycobot::imgCanPosition::Request &req,
+		 roycobot::imgCanPosition::Response &res)
+{
+    if(req.cmd == "finddistance")
+    {
+        ROS_INFO("Please give distance can");
+
+        res.rot = (int) afstand();
+
+	return true;
+    }
+    else
+    {
+	return false;
+    }
+}
+
 int main(int argc, char **argv){
 
 	printf("start\n");    
@@ -127,6 +146,7 @@ int main(int argc, char **argv){
 			}
 */
 			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
+			ros::ServiceServer serviceCanPos = n.advertiseService(candistance, chatterCan);
 			ros::spin();
 			return 0;
 		

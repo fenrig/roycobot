@@ -4,3 +4,4 @@
 #define otherrobotposition 		"otherposition"
 #define pathplanning		    	"pathplanning"
 #define pathplanning_img		"pathplanning_img"
+#define candistance                     "candistance"

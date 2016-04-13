@@ -86,6 +86,21 @@ int getCanPosition(void){
 		return INT_MAX;
 	}
 }
+
+ros::ServiceClient canDistanceClient;
+
+int getCanDistance(void){
+	roycobot::imgCanPosition srv;
+	srv.request.cmd = "finddistance";
+	if(imgCanPositionClient.call(srv)){
+		ROS_INFO("Distance: ( dist = %d )", srv.response.rot);
+		return srv.response.rot;
+		
+	}else{
+		ROS_ERROR("Failed to call service position");
+		return INT_MAX;
+	}
+}
 // -----------------
 
 
@@ -115,7 +130,10 @@ int main(int argc, char **argv)
    sleep(2);
    grijpOpen();
    driveStop();
-
+   
+   canDistanceClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
+   int distance;
+  
    // init ros node "Beeldverwerking"
    imgPositionClient = n.serviceClient<roycobot::imgPosition>(robotposition);
    struct position pos;
@@ -153,6 +171,7 @@ int main(int argc, char **argv)
           }
 	  driveStop();
 	  msleep(25);
+	  distance = getCanDistance();
    }
 
   return 0;
