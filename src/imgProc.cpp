@@ -18,6 +18,8 @@ int grad;
 cv::vector<cv::Point2f> grid;
 
 
+
+#define aantalfotostrekken 4 
 #define boardWidth 96
 #define boardHeight 160
 #define boardX boardWidth
@@ -226,7 +228,7 @@ bool getPosition(roycobot::imgPosition::Request &req,
         ROS_INFO("Calculating position");
         
         int frame = 0;
-        for(; frame < 4; frame++){
+        for(; frame < aantalfotostrekken + 1; frame++){
 #if ( DEBUG && 2)
 	takepicture();
 #else
@@ -256,7 +258,7 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
         ROS_INFO("Please calculate cans position");
 
     int frame = 0;
-    for(; frame < 4; frame++){
+    for(; frame < aantalfotostrekken + 1; frame++){
 #if ( DEBUG && 2)
 	takepicture();
 #else
