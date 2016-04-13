@@ -80,7 +80,7 @@ int afstand (){
 	strcpy(buf, "u\r\0");
 	sp_nonblocking_write(port, buf, 2);
         msleep(250);
-	sp_blocking_read(port, buf, 10, 100);
+	sp_nonblocking_read(port, buf, 20);
 	ROS_INFO("Bufferdata: %s", buf+14);
         
         return atoi(buf+14);
