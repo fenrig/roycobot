@@ -122,9 +122,10 @@ int main(int argc, char **argv){
 		if(sp_open(port, SP_MODE_READ_WRITE) == SP_OK){
 			sp_set_baudrate(port, 38400);
 			printf("Port Found: %s\n", sp_get_port_name(port));
-			while (1){
+/*			while (1){
 				afstand();
 			}
+*/
 			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
 			ros::spin();
 			return 0;
