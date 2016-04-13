@@ -153,7 +153,10 @@ int main(int argc, char **argv){
 	                
 			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
 			ros::ServiceServer serviceCanPos = n.advertiseService(candistance, chatterCan);
-			ros::spin();
+			while(ros::ok()){
+			        ros::spinOnce();
+			        sp_blocking_read(port, buf, 75);
+			}
 			return 0;
 		
 		}else{
