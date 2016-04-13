@@ -92,7 +92,7 @@ ros::ServiceClient canDistanceClient;
 int getCanDistance(void){
 	roycobot::imgCanPosition srv;
 	srv.request.cmd = "finddistance";
-	if(imgCanPositionClient.call(srv)){
+	if(canDistanceClient.call(srv)){
 		ROS_INFO("Distance: ( dist = %d )", srv.response.rot);
 		return srv.response.rot;
 		
