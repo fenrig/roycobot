@@ -113,10 +113,10 @@ double findCan()
     cv::cvtColor(inputClone,inputClone,CV_BGR2HSV);
     cv::split(inputClone,HSV);
     cv::threshold(HSV[0],thres[0],10,255,CV_THRESH_BINARY_INV);
-    cv::threshold(HSV[0],thres[1],140,255,CV_THRESH_BINARY);
-    cv::threshold(HSV[2],thres[2],190,255,CV_THRESH_BINARY_INV);
-    cv::threshold(HSV[2],thres[3],50,255,CV_THRESH_BINARY);
-    cv::Mat mask = thres[0] + thres[1] & thres[2] & thres[3];
+    cv::threshold(HSV[0],thres[1],165,255,CV_THRESH_BINARY);
+    cv::threshold(HSV[2],thres[2],35,255,CV_THRESH_BINARY);
+    cv::threshold(HSV[1],thres[3],170,255,CV_THRESH_BINARY);
+    cv::Mat mask = (thres[0] + thres[1]) & thres[2] & thres[3];
     cv::erode(mask,mask,cv::Mat());
     cv::dilate(mask,mask,cv::Mat());
     int histogram[mask.cols];
