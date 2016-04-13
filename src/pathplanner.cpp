@@ -143,7 +143,7 @@ int main(int argc, char **argv)
    
    while(ros::ok()){
         distance = getCanDistance();
-        printf("%d\n", distance);
+        
    }
    return 0;
    
@@ -156,8 +156,22 @@ int main(int argc, char **argv)
 	      driveTurnLeft();
 	      msleep(1000);
           }else if(rotation <= 3 && rotation >= -3){
-		driveForward();
-		msleep(750);
+                distance = getCanDistance();
+                if(distance < 300){
+		        driveForward();
+		        msleep(1000);
+		}else if(distance > 450){
+		        driveForward();
+		        msleep(300);
+		}else if(distance > 500){
+		       driveForward();
+		        msleep(200); 
+		}else if(distance > 600){
+		        grijpGesloten();
+		        driveTurnRight();
+		        SLEEP(40);
+		        return 0;
+		}
 	  }else if(rotation < 0){
 		if(rotation > -8){
 			driveTurnLeft();
@@ -176,7 +190,7 @@ int main(int argc, char **argv)
 		}
           }
 	  driveStop();
-	  distance = getCanDistance();
+	  msleep(100);
    }
 
   return 0;
