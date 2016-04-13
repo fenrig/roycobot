@@ -273,7 +273,6 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
     }
     else
     {
-        ROS_INFO("Vreemde commando");
 	return false;
     }
 }
