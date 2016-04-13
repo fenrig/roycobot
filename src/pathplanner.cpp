@@ -121,12 +121,15 @@ int main(int argc, char **argv)
    struct position pos;
    imgCanPositionClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
    int rotation;
-
+   unsigned int frame;
+    
    // ros loop
    while(ros::ok()){
 //	  driveStop();
 //	  getPosition(&pos);
-	  rotation = getCanPosition();
+          for(frame = 0; frame < 5; frame++){
+	        rotation = getCanPosition();
+	  }
 	  if(rotation == INT_MAX){
 	      driveTurnLeft();
 	      msleep(1200);
