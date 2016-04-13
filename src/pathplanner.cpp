@@ -131,7 +131,7 @@ int main(int argc, char **argv)
    grijpOpen();
    driveStop();
    
-   canDistanceClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
+   canDistanceClient = n.serviceClient<roycobot::imgCanPosition>(candistance);
    int distance;
   
    // init ros node "Beeldverwerking"
