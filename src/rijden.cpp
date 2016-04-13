@@ -155,7 +155,7 @@ int main(int argc, char **argv){
 			ros::ServiceServer serviceCanPos = n.advertiseService(candistance, chatterCan);
 			while(ros::ok()){
 			        ros::spinOnce();
-			        sp_blocking_read(port, buf, 75);
+			        sp_blocking_read(port, buf, 40, 75);
 			}
 			return 0;
 		
