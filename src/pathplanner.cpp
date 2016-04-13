@@ -102,6 +102,7 @@ int getCanDistance(void){
 	}
 }
 // -----------------
+typedef enum {SEARCHINGCAN, APPROACHINGCAN, GOTCAN} state_type;
 
 
 int main(int argc, char **argv)
@@ -141,50 +142,66 @@ int main(int argc, char **argv)
    int rotation;
    unsigned int frame;
    
+   state_type state = SEARCHINGCAN;
+   
    // ros loop
    while(ros::ok()){
 //	  driveStop();
 //	  getPosition(&pos);
-	  rotation = getCanPosition();
-	  if(rotation == INT_MAX){
-	      driveTurnLeft();
-	      msleep(1000);
-          }else if(rotation < 3 && rotation > -3){
-                distance = getCanDistance();
+          switch(state){
+                case SEARCHINGCAN:
+                  rotation = getCanPosition();
+                  if(rotation == INT_MAX){
+                      driveTurnLeft();
+                      msleep(1000);
+                  }else if(rotation < 2 && rotation > -2){
+                        state = APPROACHINGCAN;
+                  }else if(rotation < 0){
+	                if(rotation > -8){
+		                driveTurnLeft();
+		                msleep(600);
+	                }else{
+		                driveTurnLeft();
+		                msleep(800);		
+	                }
+                  }else if(rotation > 0){
+                  	if(rotation < 8){
+		                driveTurnRight();
+		                msleep(600);		
+	                }else{
+		                driveTurnRight();
+		                msleep(800);		
+	                }
+                  }
+                  driveStop();
+                  msleep(100);
+                  break;
+	   case APPROACHINGCAN:
+	        distance = getCanDistance();
                 if(distance < 300){
-		        driveForward();
-		        msleep(1000);
-		}else if(distance > 450){
-		        driveForward();
-		        msleep(450);
-		}else if(distance > 500){
-		       driveForward();
-		        msleep(300); 
-		}else if(distance > 600){
-		        grijpGesloten();
-		        driveTurnRight();
-		        SLEEP(40);
-		        return 0;
-		}
-	  }else if(rotation < 0){
-		if(rotation > -8){
-			driveTurnLeft();
-			msleep(600);
-		}else{
-			driveTurnLeft();
-			msleep(800);		
-		}
-	  }else if(rotation > 0){
-	  	if(rotation < 8){
-			driveTurnRight();
-			msleep(600);		
-		}else{
-			driveTurnRight();
-			msleep(800);		
-		}
-          }
-	  driveStop();
-	  msleep(100);
+                        driveForward();
+                        msleep(1000);
+                }else if(distance > 450){
+                        driveForward();
+                        msleep(450);
+                }else if(distance > 500){
+                       driveForward();
+                        msleep(300); 
+                }else if(distance > 600){
+                        grijpGesloten();
+                        driveTurnRight();
+                        SLEEP(40);
+                        state = GOTCAN;
+                }
+                driveStop();
+	        msleep(100);
+                break;
+           case GOTCAN:
+                ROS_INFO("GOT CAN, finishing");
+           default:
+                return 0;
+           
+        }
    }
 
   return 0;
