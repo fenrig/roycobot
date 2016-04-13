@@ -165,31 +165,31 @@ int main(int argc, char **argv)
                   }else if(rotation < 0){
 	                if(rotation > -8){
 		                driveTurnLeft();
-		                msleep(525);
+		                msleep(625);
 	                }else{
 		                driveTurnLeft();
-		                msleep(725);		
+		                msleep(825);		
 	                }
                   }else if(rotation > 0){
                   	if(rotation < 8){
 		                driveTurnRight();
-		                msleep(525);		
+		                msleep(625);		
 	                }else{
 		                driveTurnRight();
-		                msleep(725);		
+		                msleep(825);		
 	                }
                   }
                   driveStop();
-                  msleep(100);
+                  msleep(50);
                   break;
 	   case APPROACHINGCAN:
 	        distance = getCanDistance();
                 if(distance > 450){
                         driveForward();
-                        msleep(800);
+                        msleep(650);
                 }else if(distance > 500){
                        driveForward();
-                        msleep(600); 
+                        msleep(500); 
                 }else if(distance > 600){
                         grijpGesloten();
                         driveTurnRight();
@@ -197,10 +197,10 @@ int main(int argc, char **argv)
                         state = GOTCAN;
                 }else{
                        driveForward();
-                        msleep(800); 
+                        msleep(650); 
                 }
                 driveStop();
-	        msleep(100);
+	        msleep(50);
                 break;
            case GOTCAN:
                 ROS_INFO("GOT CAN, finishing");
