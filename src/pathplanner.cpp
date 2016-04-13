@@ -155,7 +155,13 @@ int main(int argc, char **argv)
                       driveTurnLeft();
                       msleep(1000);
                   }else if(rotation < 2 && rotation > -2){
-                        state = APPROACHINGCAN;
+                        distance = getCanDistance();
+                        if(distance < 300){
+                                driveForward();
+                                msleep(1000);
+                        }else{
+                                state = APPROACHINGCAN;
+                        }
                   }else if(rotation < 0){
 	                if(rotation > -8){
 		                driveTurnLeft();
@@ -178,15 +184,12 @@ int main(int argc, char **argv)
                   break;
 	   case APPROACHINGCAN:
 	        distance = getCanDistance();
-                if(distance < 300){
+                if(distance > 450){
                         driveForward();
-                        msleep(1000);
-                }else if(distance > 450){
-                        driveForward();
-                        msleep(450);
+                        msleep(800);
                 }else if(distance > 500){
                        driveForward();
-                        msleep(300); 
+                        msleep(600); 
                 }else if(distance > 600){
                         grijpGesloten();
                         driveTurnRight();
