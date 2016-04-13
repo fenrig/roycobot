@@ -165,18 +165,18 @@ int main(int argc, char **argv)
                   }else if(rotation < 0){
 	                if(rotation > -8){
 		                driveTurnLeft();
-		                msleep(600);
+		                msleep(525);
 	                }else{
 		                driveTurnLeft();
-		                msleep(800);		
+		                msleep(725);		
 	                }
                   }else if(rotation > 0){
                   	if(rotation < 8){
 		                driveTurnRight();
-		                msleep(600);		
+		                msleep(525);		
 	                }else{
 		                driveTurnRight();
-		                msleep(800);		
+		                msleep(725);		
 	                }
                   }
                   driveStop();
