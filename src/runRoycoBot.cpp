@@ -33,8 +33,8 @@ int main(void){
 
 	procRijden = fork();
 	if(procRijden == 0){
-		//close(1);
-		//dup((int)fopen("rijden.txt", "w+"));
+		close(1);
+		dup((int)fopen("rijden.txt", "w+"));
 		int status = system("rosrun roycobot rijden");
 		exit(0);
 	}
@@ -49,8 +49,8 @@ int main(void){
 
 	procPathplanner = fork();
 	if(procPathplanner == 0){
-		close(1);
-		dup((int)fopen("pathplanner.txt", "w+"));
+		//close(1);
+		//dup((int)fopen("pathplanner.txt", "w+"));
 		int status = system("rosrun roycobot pathplanner");
 		exit(0);
 	}
