@@ -156,7 +156,7 @@ int main(int argc, char **argv)
                       msleep(1000);
                   }else if(rotation < 2 && rotation > -2){
                         distance = getCanDistance();
-                        if(distance < 300){
+                        if(distance < 110){
                                 driveForward();
                                 msleep(1000);
                         }else{
