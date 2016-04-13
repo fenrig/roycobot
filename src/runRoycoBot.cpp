@@ -33,16 +33,16 @@ int main(void){
 
 	procRijden = fork();
 	if(procRijden == 0){
-		close(1);
-		dup((int)fopen("rijden.txt", "w+"));
+		//close(1);
+		//dup((int)fopen("rijden.txt", "w+"));
 		int status = system("rosrun roycobot rijden");
 		exit(0);
 	}
 
 	procImgproc = fork();
 	if(procImgproc == 0){
-		//close(1);
-		//dup((int)fopen("imgProc.txt", "w+"));
+		close(1);
+		dup((int)fopen("imgProc.txt", "w+"));
 		int status = system("rosrun roycobot imgProc");
 		exit(0);
 	}

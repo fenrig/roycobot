@@ -149,7 +149,7 @@ int main(int argc, char **argv)
 	  if(rotation == INT_MAX){
 	      driveTurnLeft();
 	      msleep(1000);
-          }else if(rotation < 3 && rotation > -3){
+          }else if(rotation <= 3 && rotation >= -3){
 		driveForward();
 		msleep(750);
 	  }else if(rotation < 0){
