@@ -79,7 +79,7 @@ void grijpen(int waarde){
 int afstand (){
 	strcpy(buf, "u\r\0");
 	sp_nonblocking_write(port, buf, 2);
-        msleep(250);
+        msleep(500);
 	sp_nonblocking_read(port, buf, 20);
 	ROS_INFO("Bufferdata: %s", buf+14);
         
