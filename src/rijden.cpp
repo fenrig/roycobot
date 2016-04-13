@@ -17,7 +17,7 @@ using namespace std;
 
 String msg;
 stringstream ss;
-char buf[15];
+char buf[40];
 struct sp_port *port;
 
 /*void Verzender(void){
@@ -77,6 +77,7 @@ void grijpen(int waarde){
 }
 
 int afstand (){
+        memset(buf, 0, sizeof(buf));
 	strcpy(buf, "u\r\0");
 	sp_nonblocking_write(port, buf, 2);
         msleep(500);
@@ -133,7 +134,7 @@ int main(int argc, char **argv){
     ros::init(argc, argv, "rijden");
     ros::NodeHandle n;
     //ros::Publisher chatter_pub = n.advertise<std_msgs::String>(pathplanning, 10);
-    
+ 
     struct sp_port **ports;
 
     sp_list_ports(&ports);
@@ -144,10 +145,12 @@ int main(int argc, char **argv){
 		if(sp_open(port, SP_MODE_READ_WRITE) == SP_OK){
 			sp_set_baudrate(port, 38400);
 			printf("Port Found: %s\n", sp_get_port_name(port));
-/*			while (1){
-				afstand();
-			}
-*/
+			
+			// buffer legen
+	                for(int legen = 0; legen < 10; legen++){
+	                        sp_nonblocking_read(port, buf, 40);
+	                }
+	                
 			ros::Subscriber sub = n.subscribe<roycobot::rijsignaal>(robotdrive, 10, Ontvanger);
 			ros::ServiceServer serviceCanPos = n.advertiseService(candistance, chatterCan);
 			ros::spin();
