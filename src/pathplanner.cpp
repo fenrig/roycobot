@@ -140,7 +140,13 @@ int main(int argc, char **argv)
    imgCanPositionClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
    int rotation;
    unsigned int frame;
-    
+   
+   while(ros::ok()){
+        distance = getCanDistance();
+        printf("%d\n", distance);
+   }
+   return 0;
+   
    // ros loop
    while(ros::ok()){
 //	  driveStop();
@@ -170,7 +176,6 @@ int main(int argc, char **argv)
 		}
           }
 	  driveStop();
-	  msleep(25);
 	  distance = getCanDistance();
    }
 
