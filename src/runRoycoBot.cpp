@@ -23,8 +23,8 @@ int main(void){
 
 	procRosCore = fork();
 	if(procRosCore == 0){
-		close(1);
-		dup((int)fopen("roscore.txt", "w+"));
+		//close(1);
+		//dup((int)fopen("roscore.txt", "w+"));
 		int status = system("roscore");
 		exit(0);	
 	}

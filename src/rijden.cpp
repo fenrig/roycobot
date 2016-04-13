@@ -30,6 +30,9 @@ struct sp_port *port;
     ++count;
 }*/
 
+#include <unistd.h>
+#define SLEEP(seconds) usleep(seconds * 1000000);
+#define msleep(mseconds) usleep(mseconds * 1000)
 
 void stop(void){
     strcpy(buf, "q 0 0\r");
@@ -76,7 +79,7 @@ void grijpen(int waarde){
 int afstand (){
 	strcpy(buf, "u\r\0");
 	sp_nonblocking_write(port, buf, 2);
-	sleep(2);
+        msleep(250);
 	sp_blocking_read(port, buf, 10, 100);
 	ROS_INFO("Bufferdata: %s", buf+14);
         
