@@ -8,8 +8,8 @@
 #include "topics.h"
 #include "roycobot/position2d.h"
 
-// #define SERVER "192.168.1.11"
-#define SERVER "127.0.0.1"
+#define SERVER "192.168.1.11"
+// #define SERVER "127.0.0.1"
 #define PORT 52000
 
 pid_t procListener;
