@@ -67,7 +67,7 @@ int main(void){
 	
 	procShareLoc = fork();
 	if(procShareLoc == 0){
-	        //close(1);
+	        close(1);
 #if (DEBUG & DEBUG_LOGGING)
 		dup((int)fopen("shareLoc.txt", "w+"));
 #else
