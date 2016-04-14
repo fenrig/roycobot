@@ -140,7 +140,6 @@ int main(int argc, char **argv)
    struct position pos;
    imgCanPositionClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
    int rotation;
-   unsigned int frame;
    
    state_type state = SEARCHINGCAN;
    
@@ -161,6 +160,7 @@ int main(int argc, char **argv)
                                 msleep(1000);
                         }else{
                                 state = APPROACHINGCAN;
+                                statecounter = 0;
                         }
                   }else if(rotation < 0){
 	                if(rotation > -8){
@@ -184,20 +184,27 @@ int main(int argc, char **argv)
                   break;
 	   case APPROACHINGCAN:
 	        distance = getCanDistance();
-                if(distance > 450){
+                
+	        if(distance < 75){
+	                state = SEARCHINGCAN;
+	                break;
+	        }
+                else if(distance > 450){
                         driveForward();
-                        msleep(650);
+
+/*                        msleep(350);
                 }else if(distance > 500){
                        driveForward();
-                        msleep(500); 
-                }else if(distance > 600){
+                        msleep(200); 
+*/
+                }else if(distance > 500){
                         grijpGesloten();
                         driveTurnRight();
                         SLEEP(40);
                         state = GOTCAN;
                 }else{
                        driveForward();
-                        msleep(650); 
+                        msleep(500); 
                 }
                 driveStop();
 	        msleep(50);
