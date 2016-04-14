@@ -187,8 +187,7 @@ int main(int argc, char **argv)
 	        if(distance < 75){
 	                state = SEARCHINGCAN;
 	                break;
-	        }
-                else if(distance > 200){
+	        }else if(distance > 200){
                         driveForward();
                         msleep(200);
 
@@ -197,7 +196,7 @@ int main(int argc, char **argv)
                        driveForward();
                         msleep(200); 
 */
-                }else if(distance > 380){
+                }else if(distance > 350){
                         grijpGesloten();
                         driveTurnRight();
                         SLEEP(40);
