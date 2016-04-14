@@ -4,6 +4,7 @@
 #include <stdlib.h> //exit(0);
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include "ros/ros.h"
 #include "topics.h"
 #include "roycobot/position2d.h"
 
