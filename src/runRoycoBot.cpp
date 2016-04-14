@@ -32,7 +32,7 @@ int main(void){
 #if (DEBUG && DEBUG_LOGGING)
 		dup((int)fopen("roscore.txt", "w+"));
 #else
-                dup((int)fopen("/dev/null", O_WRONLY));
+                dup((int)fopen("/dev/null", "w"));
 #endif
 		int status = system("roscore");
 		exit(0);	
@@ -46,7 +46,7 @@ int main(void){
 #if (DEBUG && DEBUG_LOGGING)
 		dup((int)fopen("rijden.txt", "w+"));
 #else
-                dup((int)fopen("/dev/null", O_WRONLY));
+                dup((int)fopen("/dev/null", "w"));
 #endif
 		int status = system("rosrun roycobot rijden");
 		exit(0);
@@ -58,7 +58,7 @@ int main(void){
 #if (DEBUG && DEBUG_LOGGING)
 		dup((int)fopen("imgProc.txt", "w+"));
 #else
-                dup((int)fopen("/dev/null", O_WRONLY));
+                dup((int)fopen("/dev/null", "w"));
 #endif
 		int status = system("rosrun roycobot imgProc");
 		exit(0);
@@ -70,7 +70,7 @@ int main(void){
 		close(1);
 		dup((int)fopen("pathplanner.txt", "w+"));
 #else
-                dup((int)fopen("/dev/null", O_WRONLY));
+                dup((int)fopen("/dev/null", "w"));
 #endif
 		int status = system("rosrun roycobot pathplanner");
 		exit(0);
