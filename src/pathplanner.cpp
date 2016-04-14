@@ -157,10 +157,9 @@ int main(int argc, char **argv)
                         distance = getCanDistance();
                         if(distance < 110){
                                 driveForward();
-                                msleep(1000);
+                                msleep(800);
                         }else{
                                 state = APPROACHINGCAN;
-                                statecounter = 0;
                         }
                   }else if(rotation < 0){
 	                if(rotation > -8){
