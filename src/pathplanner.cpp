@@ -187,7 +187,7 @@ int main(int argc, char **argv)
 	        if(distance < 75){
 	                state = SEARCHINGCAN;
 	                break;
-	        }else if(distance > 400){
+	        }else if(distance > 465){
                         grijpGesloten();
                         SLEEP(1);
                         driveTurnRight();
