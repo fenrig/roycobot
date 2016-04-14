@@ -67,8 +67,8 @@ int main(void){
 	
 	procShareLoc = fork();
 	if(procShareLoc == 0){
+	        //close(1);
 #if (DEBUG & DEBUG_LOGGING)
-		//close(1);
 		dup((int)fopen("shareLoc.txt", "w+"));
 #else
                 dup((int)fopen("/dev/null", "w"));
@@ -79,8 +79,8 @@ int main(void){
 
 	procPathplanner = fork();
 	if(procPathplanner == 0){
+	        close(1);
 #if (DEBUG & DEBUG_LOGGING)
-		close(1);
 		dup((int)fopen("pathplanner.txt", "w+"));
 #else
                 dup((int)fopen("/dev/null", "w"));
