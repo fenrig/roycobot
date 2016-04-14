@@ -19,7 +19,7 @@ struct position {
 
 ros::Publisher chatter_sharePos;
 
-void sharePosition(struct position pos){
+void sharePosition(struct position *pos){
         roycobot::position2d msg; 
         
         msg.x = pos.x;
