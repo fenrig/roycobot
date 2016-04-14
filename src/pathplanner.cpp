@@ -141,6 +141,8 @@ int main(int argc, char **argv)
    imgCanPositionClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
    int rotation;
    
+   int zijnerbijna = 0;
+   
    state_type state = SEARCHINGCAN;
    
    // ros loop
@@ -158,9 +160,19 @@ int main(int argc, char **argv)
                         if(distance < 125){
                                 driveForward();
                                 msleep(800);
+                                zijnerbijna++;
                         }else{
                                 state = APPROACHINGCAN;
+                                zijnerbijna = 0;
                         }
+                  }else if(rotation > 2){
+                        if(rotation < 0){
+		                 driveTurnLeft();
+		                 msleep(500);
+                          }else if(rotation > 0){
+		                driveTurnRight();
+		                msleep(500);		
+                          }
                   }else if(rotation < 0){
 	                if(rotation > -11){
 		                driveTurnLeft();
