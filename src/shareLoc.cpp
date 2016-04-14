@@ -36,7 +36,7 @@ void Ontvanger(const roycobot::position2d::ConstPtr& signaal){
     y = signaal->y;
 }
 
-void listenerFunc(void){
+void listenerFunc(int argc, char **argv){
     ros::init(argc, argv, "otherrobotpos");
     ros::NodeHandle n;
     
@@ -67,9 +67,10 @@ void listenerFunc(void){
         }
         ROS_INFO("OTHERROBOTPOS: { x = %d ; y = %d }\n", udpMsg.x, udpMsg.y);
     }
+    exit(0);
 }
 
-void senderFunc(void){
+void senderFunc(int argc, char **argv){
     ros::init(argc, argv, "sharerobotpos");
     ros::NodeHandle n;
     
@@ -105,13 +106,14 @@ void senderFunc(void){
             die("sendto()");
         }
     }
+    exit(0);
 }
 
 int main(int argc, char **argv){
         procListener = fork();
         if(procListener == 0){
-                listenerFunc();
+                listenerFunc(argc, argv);
         }
         
-        senderFunc();
+        senderFunc(argc, argv);
 }
