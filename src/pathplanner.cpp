@@ -162,7 +162,7 @@ int main(int argc, char **argv)
                                 state = APPROACHINGCAN;
                         }
                   }else if(rotation < 0){
-	                if(rotation > -8){
+	                if(rotation > -11){
 		                driveTurnLeft();
 		                msleep(625);
 	                }else{
@@ -170,7 +170,7 @@ int main(int argc, char **argv)
 		                msleep(825);		
 	                }
                   }else if(rotation > 0){
-                  	if(rotation < 8){
+                  	if(rotation < 11){
 		                driveTurnRight();
 		                msleep(625);		
 	                }else{
@@ -187,7 +187,7 @@ int main(int argc, char **argv)
 	        if(distance < 75){
 	                state = SEARCHINGCAN;
 	                break;
-	        }else if(distance > 350){
+	        }else if(distance > 400){
                         grijpGesloten();
                         SLEEP(1);
                         driveTurnRight();
