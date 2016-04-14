@@ -4,6 +4,11 @@
 #include <signal.h>
 #include <stdio.h>
 
+#define DEBUG_LOGGING 1
+#define DEBUG_LOG_NULL 0
+
+#define DEBUG DEBUG_LOG_NULL
+
 pid_t procRijden;
 pid_t procImgproc;
 pid_t procPathplanner;
@@ -24,17 +29,25 @@ int main(void){
 	procRosCore = fork();
 	if(procRosCore == 0){
 		close(1);
+#if (DEBUG && DEBUG_LOGGING)
 		dup((int)fopen("roscore.txt", "w+"));
+#else
+                dup((int)fopen("/dev/null", O_WRONLY));
+#endif
 		int status = system("roscore");
 		exit(0);	
 	}
 
-	usleep(15000000);
+	usleep(30000000);
 
 	procRijden = fork();
 	if(procRijden == 0){
 		close(1);
+#if (DEBUG && DEBUG_LOGGING)
 		dup((int)fopen("rijden.txt", "w+"));
+#else
+                dup((int)fopen("/dev/null", O_WRONLY));
+#endif
 		int status = system("rosrun roycobot rijden");
 		exit(0);
 	}
@@ -42,15 +55,23 @@ int main(void){
 	procImgproc = fork();
 	if(procImgproc == 0){
 		close(1);
+#if (DEBUG && DEBUG_LOGGING)
 		dup((int)fopen("imgProc.txt", "w+"));
+#else
+                dup((int)fopen("/dev/null", O_WRONLY));
+#endif
 		int status = system("rosrun roycobot imgProc");
 		exit(0);
 	}
 
 	procPathplanner = fork();
 	if(procPathplanner == 0){
-		//close(1);
-		//dup((int)fopen("pathplanner.txt", "w+"));
+#if (DEBUG && DEBUG_LOGGING)
+		close(1);
+		dup((int)fopen("pathplanner.txt", "w+"));
+#else
+                dup((int)fopen("/dev/null", O_WRONLY));
+#endif
 		int status = system("rosrun roycobot pathplanner");
 		exit(0);
 	}

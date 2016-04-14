@@ -194,7 +194,7 @@ int main(int argc, char **argv)
 	                }
                   }
                   driveStop();
-                  msleep(50);
+                  msleep(25);
                   break;
 	   case APPROACHINGCAN:
 	        prevdist = distance;
@@ -228,7 +228,7 @@ int main(int argc, char **argv)
                         msleep(500); 
                 }
                 driveStop();
-	        msleep(50);
+	        msleep(25);
                 break;
            case GOTCAN:
                 ROS_INFO("GOT CAN, finishing");

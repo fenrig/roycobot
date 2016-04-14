@@ -80,7 +80,7 @@ int afstand (){
         memset(buf, 0, sizeof(buf));
 	strcpy(buf, "u\r\0");
 	sp_nonblocking_write(port, buf, 2);
-        msleep(500);
+        msleep(250);
 	sp_nonblocking_read(port, buf, 20);
 	ROS_INFO("Bufferdata: %s", buf);
         
@@ -155,7 +155,7 @@ int main(int argc, char **argv){
 			ros::ServiceServer serviceCanPos = n.advertiseService(candistance, chatterCan);
 			while(ros::ok()){
 			        ros::spinOnce();
-			        sp_blocking_read(port, buf, 40, 75);
+			        sp_blocking_read(port, buf, 40, 45);
 			}
 			return 0;
 		
