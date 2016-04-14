@@ -142,6 +142,7 @@ int main(int argc, char **argv)
    int rotation;
    
    int zijnerbijna = 0;
+   int prevdist = INT_MAX;
    
    state_type state = SEARCHINGCAN;
    
@@ -196,12 +197,14 @@ int main(int argc, char **argv)
                   msleep(50);
                   break;
 	   case APPROACHINGCAN:
+	        prevdist = distance;
 	        distance = getCanDistance();
                 
 	        if(distance < 75){
 	                state = SEARCHINGCAN;
+	                zijnerbijna = 0;
 	                break;
-	        }else if(distance > 465){
+	        }else if(distance > 425 || (distance > 300 && prevdist > distance)){
                         grijpGesloten();
                         SLEEP(1);
                         driveTurnRight();
@@ -214,7 +217,7 @@ int main(int argc, char **argv)
 	        }else if(distance > 190){
                         driveForward();
                         msleep(200);
-
+                        
 /*                        msleep(350);
                 }else if(distance > 500){
                        driveForward();
