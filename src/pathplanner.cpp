@@ -22,8 +22,8 @@ ros::Publisher chatter_sharePos;
 void sharePosition(struct position *pos){
         roycobot::position2d msg; 
         
-        msg.x = pos.x;
-        msg.y = pos.y;
+        msg.x = pos->x;
+        msg.y = pos->y;
         
         chatter_sharePos.publish(msg);
 }
