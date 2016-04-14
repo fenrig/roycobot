@@ -165,7 +165,7 @@ int main(int argc, char **argv)
                                 state = APPROACHINGCAN;
                                 zijnerbijna = 0;
                         }
-                  }else if(rotation > 2){
+                  }else if(zijnerbijna > 2){
                         if(rotation < 0){
 		                 driveTurnLeft();
 		                 msleep(500);
@@ -174,6 +174,7 @@ int main(int argc, char **argv)
 		                msleep(500);		
                           }
                   }else if(rotation < 0){
+                        zijnerbijna = 0;
 	                if(rotation > -11){
 		                driveTurnLeft();
 		                msleep(625);
@@ -182,6 +183,7 @@ int main(int argc, char **argv)
 		                msleep(825);		
 	                }
                   }else if(rotation > 0){
+                        zijnerbijna = 0;
                   	if(rotation < 11){
 		                driveTurnRight();
 		                msleep(625);		
