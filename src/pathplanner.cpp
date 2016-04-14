@@ -25,6 +25,8 @@ void sharePosition(struct position *pos){
         msg.x = pos->x;
         msg.y = pos->y;
         
+        ROS_INFO("Sharing position: ( x = %u , y = %u )", msg->x, msg->y);
+        
         chatter_sharePos.publish(msg);
 }
 // ------------------
