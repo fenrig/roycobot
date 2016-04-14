@@ -190,14 +190,14 @@ int main(int argc, char **argv)
 	        }
                 else if(distance > 200){
                         driveForward();
-                        msleep(250);
+                        msleep(200);
 
 /*                        msleep(350);
                 }else if(distance > 500){
                        driveForward();
                         msleep(200); 
 */
-                }else if(distance > 400){
+                }else if(distance > 380){
                         grijpGesloten();
                         driveTurnRight();
                         SLEEP(40);
