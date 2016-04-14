@@ -188,15 +188,16 @@ int main(int argc, char **argv)
 	                state = SEARCHINGCAN;
 	                break;
 	        }
-                else if(distance > 450){
+                else if(distance > 250){
                         driveForward();
+                        msleep(350);
 
 /*                        msleep(350);
                 }else if(distance > 500){
                        driveForward();
                         msleep(200); 
 */
-                }else if(distance > 500){
+                }else if(distance > 450){
                         grijpGesloten();
                         driveTurnRight();
                         SLEEP(40);
