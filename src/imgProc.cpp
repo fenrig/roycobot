@@ -224,8 +224,9 @@ bool getPosition(roycobot::imgPosition::Request &req,
     if(req.cmd == "getPos")
     {
         ROS_INFO("Calculating position");
-        
+     
         int frame = 0;
+
         for(; frame < aantalfotostrekken + 1; frame++){
 #if ( DEBUG && 2)
 	takepicture();
@@ -233,6 +234,7 @@ bool getPosition(roycobot::imgPosition::Request &req,
 	webcam >> inputFrame;
 #endif
         }
+
         
 	cv::Point2f point = positionDef();
         res.x= (uint)point.x;
@@ -256,6 +258,9 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
         ROS_INFO("Please calculate cans position");
 
     int frame = 0;
+
+// Wegens optimalisaties geen fotos trekken
+/*
     for(; frame < aantalfotostrekken + 1; frame++){
 #if ( DEBUG && 2)
 	takepicture();
@@ -263,6 +268,7 @@ bool chatterCan(roycobot::imgCanPosition::Request &req,
 	webcam >> inputFrame;
 #endif
      }
+*/
         res.rot = (int ) findCan();
 
 	ROS_INFO("POS: (rot = %d)", res.rot);

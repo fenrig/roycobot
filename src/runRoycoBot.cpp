@@ -29,7 +29,7 @@ int main(void){
 	procRosCore = fork();
 	if(procRosCore == 0){
 		close(1);
-#if (DEBUG && DEBUG_LOGGING)
+#if (DEBUG & DEBUG_LOGGING)
 		dup((int)fopen("roscore.txt", "w+"));
 #else
                 dup((int)fopen("/dev/null", "w"));
@@ -43,7 +43,7 @@ int main(void){
 	procRijden = fork();
 	if(procRijden == 0){
 		close(1);
-#if (DEBUG && DEBUG_LOGGING)
+#if (DEBUG & DEBUG_LOGGING)
 		dup((int)fopen("rijden.txt", "w+"));
 #else
                 dup((int)fopen("/dev/null", "w"));
@@ -55,7 +55,7 @@ int main(void){
 	procImgproc = fork();
 	if(procImgproc == 0){
 		close(1);
-#if (DEBUG && DEBUG_LOGGING)
+#if (DEBUG & DEBUG_LOGGING)
 		dup((int)fopen("imgProc.txt", "w+"));
 #else
                 dup((int)fopen("/dev/null", "w"));
@@ -66,7 +66,7 @@ int main(void){
 
 	procPathplanner = fork();
 	if(procPathplanner == 0){
-#if (DEBUG && DEBUG_LOGGING)
+#if (DEBUG & DEBUG_LOGGING)
 		close(1);
 		dup((int)fopen("pathplanner.txt", "w+"));
 #else

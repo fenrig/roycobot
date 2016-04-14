@@ -221,6 +221,10 @@ add_executable(runRoycoBot src/runRoycoBot.cpp)
 target_link_libraries(runRoycoBot ${catkin_LIBRARIES})
 add_dependencies(runRoycoBot labo_generate_messages_cpp)
 
+add_executable(shareLoc src/shareLoc.cpp)
+target_link_libraries(shareLoc ${catkin_LIBRARIES})
+add_dependencies(shareLoc labo_generate_messages_cpp)
+
 add_executable(pathplanner src/pathplanner.cpp)
 target_link_libraries(pathplanner ${catkin_LIBRARIES})
 add_dependencies(pathplanner labo_generate_messages_cpp)

@@ -2,6 +2,7 @@
 #include "roycobot/imgPosition.h"
 #include "roycobot/imgCanPosition.h"
 #include "roycobot/rijsignaal.h"
+#include "roycobot/position2d.h"
 #include "topics.h"
 #include <limits.h>
 
@@ -9,6 +10,24 @@
 #include <unistd.h>
 #define SLEEP(seconds) usleep(seconds * 1000000);
 #define msleep(mseconds) usleep(mseconds * 1000)
+
+// ---- Share pos ---
+struct position {
+	unsigned int x;
+	unsigned int y;
+};
+
+ros::Publisher chatter_sharePos;
+
+void sharePosition(struct position pos){
+        roycobot::position2d msg; 
+        
+        msg.x = pos.x;
+        msg.y = pos.y;
+        
+        chatter_sharePos.publish(msg);
+}
+// ------------------
 
 // --- Rijd ROS node ---
 #define DRIVEMACRO(name, value) \
@@ -51,11 +70,6 @@ void grijpGesloten(void){
 
 // --- Beeldverwerking ---
 ros::ServiceClient imgPositionClient;
-
-struct position {
-	unsigned int x;
-	unsigned int y;
-};
 
 bool getPosition(struct position *pos){
 	roycobot::imgPosition srv;
@@ -125,7 +139,10 @@ int main(int argc, char **argv)
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
-
+   
+   // init ros node "shareLoc"
+   chatter_sharePos = n.advertise<roycobot::position2d>(robotsharepos, 10);
+   
    // init ros node "Rijden"
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
    sleep(2);
@@ -148,8 +165,9 @@ int main(int argc, char **argv)
    
    // ros loop
    while(ros::ok()){
-//	  driveStop();
-//	  getPosition(&pos);
+	  getPosition(&pos);
+	  sharePosition(&pos);
+	  
           switch(state){
                 case SEARCHINGCAN:
                   rotation = getCanPosition();
