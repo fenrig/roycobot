@@ -13,6 +13,7 @@ pid_t procRijden;
 pid_t procImgproc;
 pid_t procPathplanner;
 pid_t procRosCore;
+pid_t procShareLoc;
 
 void my_handler(int s){
            printf("Caught signal %d\n",s);
@@ -63,6 +64,18 @@ int main(void){
 		int status = system("rosrun roycobot imgProc");
 		exit(0);
 	}
+	
+	procShareLoc = fork();
+	if(procShareLoc == 0){
+#if (DEBUG & DEBUG_LOGGING)
+		//close(1);
+		dup((int)fopen("shareLoc.txt", "w+"));
+#else
+                dup((int)fopen("/dev/null", "w"));
+#endif
+		int status = system("rosrun roycobot shareLoc");
+		exit(0);
+	}
 
 	procPathplanner = fork();
 	if(procPathplanner == 0){
@@ -75,6 +88,8 @@ int main(void){
 		int status = system("rosrun roycobot pathplanner");
 		exit(0);
 	}
+	
+
 	struct sigaction sigIntHandler;
 
 	sigIntHandler.sa_handler = my_handler;
