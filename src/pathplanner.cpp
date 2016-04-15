@@ -31,6 +31,20 @@ void sharePosition(struct position *pos){
 }
 // ------------------
 
+// ---- Sleep timings ---
+// SEARCHINGCAN
+#define LONGFORWARD 775
+#define LONGTURN 900
+#define MIDDLETURN 825
+#define SHORTTURN 600
+
+// APPROACHINGCAN
+#define MIDDLEFORWARD 500
+#define SHORTFORWARD 200
+
+// ALL
+#define SHORTSLEEP 25
+
 // --- Rijd ROS node ---
 #define DRIVEMACRO(name, value) \
     roycobot::rijsignaal msg; \
@@ -175,12 +189,12 @@ int main(int argc, char **argv)
                   rotation = getCanPosition();
                   if(rotation == INT_MAX){
                       driveTurnLeft();
-                      msleep(900);
+                      msleep(LONGTURN);
                   }else if(rotation < 2 && rotation > -2){
                         distance = getCanDistance();
                         if(distance < 125){
                                 driveForward();
-                                msleep(800);
+                                msleep(LONGFORWARD);
                                 zijnerbijna++;
                         }else{
                                 state = APPROACHINGCAN;
@@ -189,32 +203,32 @@ int main(int argc, char **argv)
                   }else if(zijnerbijna > 2){
                         if(rotation < 0){
 		                 driveTurnLeft();
-		                 msleep(500);
+		                 msleep(SHORTTURN);
                           }else if(rotation > 0){
 		                driveTurnRight();
-		                msleep(500);		
+		                msleep(SHORTTURN);		
                           }
                   }else if(rotation < 0){
                         zijnerbijna = 0;
 	                if(rotation > -11){
 		                driveTurnLeft();
-		                msleep(625);
+		                msleep(SHORTTURN);
 	                }else{
 		                driveTurnLeft();
-		                msleep(825);		
+		                msleep(MIDDLETURN);		
 	                }
                   }else if(rotation > 0){
                         zijnerbijna = 0;
                   	if(rotation < 11){
 		                driveTurnRight();
-		                msleep(625);		
+		                msleep(SHORTTURN);		
 	                }else{
 		                driveTurnRight();
-		                msleep(825);		
+		                msleep(MIDDLETURN);		
 	                }
                   }
                   driveStop();
-                  msleep(25);
+                  msleep(SHORTSLEEP);
                   break;
 	   case APPROACHINGCAN:
 	        prevdist = distance;
@@ -236,7 +250,7 @@ int main(int argc, char **argv)
                         state = GOTCAN;
 	        }else if(distance > 190){
                         driveForward();
-                        msleep(200);
+                        msleep(SHORTFORWARD);
                         
 /*                        msleep(350);
                 }else if(distance > 500){
@@ -245,10 +259,10 @@ int main(int argc, char **argv)
 */
                 }else{
                        driveForward();
-                        msleep(500); 
+                        msleep(MIDDLEFORWARD); 
                 }
                 driveStop();
-	        msleep(25);
+	        msleep(SHORTSLEEP);
                 break;
            case GOTCAN:
                 ROS_INFO("GOT CAN, finishing");

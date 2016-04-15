@@ -65,6 +65,8 @@ int main(void){
 		exit(0);
 	}
 	
+	usleep(1000000);
+	
 	procShareLoc = fork();
 	if(procShareLoc == 0){
 	        close(1);
