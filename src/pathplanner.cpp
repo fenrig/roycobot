@@ -34,9 +34,13 @@ void sharePosition(struct position *pos){
 // ---- Sleep timings ---
 // SEARCHINGCAN
 #define LONGFORWARD 775
+
 #define LONGTURN 900
 #define MIDDLETURN 825
 #define SHORTTURN 600
+
+#define SMALLANGLE 2
+#define MIDDLEANGLE 11
 
 // APPROACHINGCAN
 #define MIDDLEFORWARD 500
@@ -190,7 +194,7 @@ int main(int argc, char **argv)
                   if(rotation == INT_MAX){
                       driveTurnLeft();
                       msleep(LONGTURN);
-                  }else if(rotation < 2 && rotation > -2){
+                  }else if(rotation < MIDDLEANGLE && rotation > -MIDDLEANGLE){
                         distance = getCanDistance();
                         if(distance < 125){
                                 driveForward();
@@ -210,7 +214,7 @@ int main(int argc, char **argv)
                           }
                   }else if(rotation < 0){
                         zijnerbijna = 0;
-	                if(rotation > -11){
+	                if(rotation > -MIDDLEANGLE){
 		                driveTurnLeft();
 		                msleep(SHORTTURN);
 	                }else{
@@ -219,7 +223,7 @@ int main(int argc, char **argv)
 	                }
                   }else if(rotation > 0){
                         zijnerbijna = 0;
-                  	if(rotation < 11){
+                  	if(rotation < MIDDLEANGLE){
 		                driveTurnRight();
 		                msleep(SHORTTURN);		
 	                }else{
