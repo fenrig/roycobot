@@ -20,13 +20,13 @@ struct position {
 ros::Publisher chatter_sharePos;
 
 void sharePosition(struct position *pos){
-        roycobot::position2d msg; 
-        
+        roycobot::position2d msg;
+
         msg.x = pos->x;
         msg.y = pos->y;
-        
+
         ROS_INFO("Sharing position: ( x = %d , y = %d )", msg.x, msg.y);
-        
+
         chatter_sharePos.publish(msg);
 }
 // ------------------
@@ -99,7 +99,7 @@ bool getPosition(struct position *pos){
 		pos->x = srv.response.x;
 		pos->y = srv.response.y;
 		return true;
-		
+
 	}else{
 		ROS_ERROR("Failed to call service position");
 		return false;
@@ -114,7 +114,7 @@ int getCanPosition(void){
 	if(imgCanPositionClient.call(srv)){
 		ROS_INFO("Position: ( rot = %d )", srv.response.rot);
 		return srv.response.rot;
-		
+
 	}else{
 		ROS_ERROR("Failed to call service position");
 		return INT_MAX;
@@ -129,7 +129,7 @@ int getCanDistance(void){
 	if(canDistanceClient.call(srv)){
 		ROS_INFO("Distance: ( dist = %d )", srv.response.rot);
 		return srv.response.rot;
-		
+
 	}else{
 		ROS_ERROR("Failed to call service position");
 		return INT_MAX;
@@ -159,35 +159,35 @@ int main(int argc, char **argv)
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
-   
+
    // init ros node "shareLoc"
    chatter_sharePos = n.advertise<roycobot::position2d>(robotsharepos, 10);
-   
+
    // init ros node "Rijden"
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
    sleep(2);
    grijpOpen();
    driveStop();
-   
+
    canDistanceClient = n.serviceClient<roycobot::imgCanPosition>(candistance);
    int distance;
-  
+
    // init ros node "Beeldverwerking"
    imgPositionClient = n.serviceClient<roycobot::imgPosition>(robotposition);
    struct position pos;
    imgCanPositionClient = n.serviceClient<roycobot::imgCanPosition>(canposition);
    int rotation;
-   
+
    int zijnerbijna = 0;
    int prevdist = INT_MAX;
-   
+
    state_type state = SEARCHINGCAN;
-   
+
    // ros loop
    while(ros::ok()){
 	  getPosition(&pos);
 	  sharePosition(&pos);
-	  
+
           switch(state){
                 case SEARCHINGCAN:
                   rotation = getCanPosition();
@@ -210,7 +210,7 @@ int main(int argc, char **argv)
 		                 msleep(SHORTTURN);
                           }else if(rotation > 0){
 		                driveTurnRight();
-		                msleep(SHORTTURN);		
+		                msleep(SHORTTURN);
                           }
                   }else if(rotation < 0){
                         zijnerbijna = 0;
@@ -219,16 +219,16 @@ int main(int argc, char **argv)
 		                msleep(SHORTTURN);
 	                }else{
 		                driveTurnLeft();
-		                msleep(MIDDLETURN);		
+		                msleep(MIDDLETURN);
 	                }
                   }else if(rotation > 0){
                         zijnerbijna = 0;
                   	if(rotation < MIDDLEANGLE){
 		                driveTurnRight();
-		                msleep(SHORTTURN);		
+		                msleep(SHORTTURN);
 	                }else{
 		                driveTurnRight();
-		                msleep(MIDDLETURN);		
+		                msleep(MIDDLETURN);
 	                }
                   }
                   driveStop();
@@ -237,42 +237,42 @@ int main(int argc, char **argv)
 	   case APPROACHINGCAN:
 	        prevdist = distance;
 	        distance = getCanDistance();
-                
+
 	        if(distance < 75){
 	                state = SEARCHINGCAN;
 	                zijnerbijna = 0;
 	                break;
 	        }else if(distance > 425 || (distance > 300 && prevdist > distance)){
-                        grijpGesloten();
-                        SLEEP(1);
-                        driveTurnRight();
-                        SLEEP(10);
-                        driveTurnLeft();
-                        SLEEP(2);
-                        driveTurnLeft();
-                        SLEEP(10);
                         state = GOTCAN;
 	        }else if(distance > 190){
                         driveForward();
                         msleep(SHORTFORWARD);
-                        
+
 /*                        msleep(350);
                 }else if(distance > 500){
                        driveForward();
-                        msleep(200); 
+                        msleep(200);
 */
                 }else{
                        driveForward();
-                        msleep(MIDDLEFORWARD); 
+                        msleep(MIDDLEFORWARD);
                 }
                 driveStop();
 	        msleep(SHORTSLEEP);
                 break;
            case GOTCAN:
+								 grijpGesloten();
+								 SLEEP(1);
+								 driveTurnRight();
+								 SLEEP(10);
+								 driveTurnLeft();
+								 SLEEP(2);
+								 driveTurnLeft();
+								 SLEEP(10);
                 ROS_INFO("GOT CAN, finishing");
            default:
                 return 0;
-           
+
         }
    }
 
