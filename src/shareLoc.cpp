@@ -67,6 +67,7 @@ void listenerFunc(int argc, char **argv){
         {
             die("recvfrom()");
         }
+        // maybe check: if ( (udpMsg.x == ~udpMsg.x2) && (udpMsg.y == ~udpMsg.y2) )
         ROS_INFO("OTHERROBOTPOS: { x = %d ; y = %d }\n", udpMsg.x, udpMsg.y);
     }
     exit(0);
@@ -98,10 +99,12 @@ void senderFunc(int argc, char **argv){
     while(ros::ok()){
         ros::spinOnce();
         
-        udpMsg.x = udpMsg.x2 = x;
-        udpMsg.y = udpMsg.y2 = y;
+        udpMsg.x = x;
+        udpMsg.x2 = ~x;
+        udpMsg.y = y;
+        udpMsg.y2 = ~y;
         
-        ROS_INFO("SHARINGPOS: { x = %d ; y = %d }\n", udpMsg.x, udpMsg.y);
+        ROS_INFO("SHARINGPOS: { x = %d ; y = %d ; x2 = %d ; y2 = %d }\n", udpMsg.x, udpMsg.y, udpMsg.x2, udpMsg.y2);
         
         if (sendto(s, &udpMsg, sizeof(udpMsg) , 0 , (struct sockaddr *) &si_other, slen)==-1)
         {
