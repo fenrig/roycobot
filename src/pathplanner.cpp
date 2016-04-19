@@ -252,12 +252,6 @@ int main(int argc, char **argv)
 	        }else if(distance > 190){
                         driveForward();
                         msleep(SHORTFORWARD);
-
-/*                        msleep(350);
-                }else if(distance > 500){
-                       driveForward();
-                        msleep(200);
-*/
                 }else{
                        driveForward();
                         msleep(MIDDLEFORWARD);
