@@ -7,6 +7,7 @@
 #include "ros/ros.h"
 #include "topics.h"
 #include "roycobot/position2d.h"
+#include <string>
 
 #define SERVER "192.168.1.11"
 // #define SERVER "127.0.0.1"
@@ -26,7 +27,7 @@ struct udpMessage udpMsg;
 unsigned int x;
 unsigned int y;
 
-void die(string s)
+void die(std::string s)
 {
     ROS_ERROR(s);
     exit(1);
