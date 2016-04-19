@@ -274,6 +274,8 @@ int main(int argc, char **argv)
 		 SLEEP(2);
 		 driveTurnLeft();
 		 SLEEP(10);
+		 driveStop();
+		 grijpOpen();
                 ROS_INFO("GOT CAN, finishing");
            default:
                 return 0;
