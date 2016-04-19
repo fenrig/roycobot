@@ -26,7 +26,7 @@ struct udpMessage udpMsg;
 unsigned int x;
 unsigned int y;
 
-void die(String s)
+void die(string s)
 {
     ROS_ERROR(s);
     exit(1);
