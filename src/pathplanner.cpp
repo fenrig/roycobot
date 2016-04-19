@@ -29,6 +29,10 @@ void sharePosition(struct position *pos){
 
         chatter_sharePos.publish(msg);
 }
+
+void otherrobotposFunc(const roycobot::position2d::ConstPtr& signaal){
+        ROS_INFO("Sharing position: ( x = %d , y = %d )", signaal->x, signaal->y);
+}
 // ------------------
 
 // ---- Sleep timings ---
@@ -162,6 +166,7 @@ int main(int argc, char **argv)
 
    // init ros node "shareLoc"
    chatter_sharePos = n.advertise<roycobot::position2d>(robotsharepos, 10);
+   ros::Subscriber sub = n.subscribe<roycobot::position2d>(otherrobotposition, 10, otherrobotposFunc);
 
    // init ros node "Rijden"
    chatter_sub_drive = n.advertise<roycobot::rijsignaal>(robotdrive, 10);
@@ -261,14 +266,14 @@ int main(int argc, char **argv)
 	        msleep(SHORTSLEEP);
                 break;
            case GOTCAN:
-								 grijpGesloten();
-								 SLEEP(1);
-								 driveTurnRight();
-								 SLEEP(10);
-								 driveTurnLeft();
-								 SLEEP(2);
-								 driveTurnLeft();
-								 SLEEP(10);
+		 grijpGesloten();
+		 SLEEP(1);
+		 driveTurnRight();
+		 SLEEP(10);
+		 driveTurnLeft();
+		 SLEEP(2);
+		 driveTurnLeft();
+		 SLEEP(10);
                 ROS_INFO("GOT CAN, finishing");
            default:
                 return 0;

@@ -41,6 +41,8 @@ void listenerFunc(int argc, char **argv){
     ros::init(argc, argv, "otherrobotpos");
     ros::NodeHandle n;
     
+    roycobot::position2d msg;
+    
     struct sockaddr_in si_me, si_other;
      
     int s, i, recv_len;
@@ -62,13 +64,21 @@ void listenerFunc(int argc, char **argv){
         die("bind");
     }
     
+    ros::Publisher chatter_sharePos = n.advertise<roycobot::position2d>(otherrobotposition, 10);        
+    
     while(ros::ok()){
         if ((recv_len = recvfrom(s, &udpMsg, sizeof(struct udpMessage), 0, (struct sockaddr *) &si_other, &slen)) == -1)
         {
             die("recvfrom()");
         }
-        // maybe check: if ( (udpMsg.x == ~udpMsg.x2) && (udpMsg.y == ~udpMsg.y2) )
-        ROS_INFO("OTHERROBOTPOS: { x = %d ; y = %d }\n", udpMsg.x, udpMsg.y);
+        if ( (udpMsg.x == ~udpMsg.x2) && (udpMsg.y == ~udpMsg.y2) ){
+                ROS_INFO("OTHERROBOTPOS: { x = %d ; y = %d }\n", udpMsg.x, udpMsg.y);
+                msg.x = udpMsg.x;
+                msg.y = udpMsg.y;
+                chatter_sharePos.publish(msg);
+        }else{
+                ROS_INFO("OTHERROBOTPOS: Verkeerd bericht ontvangen\n");
+        }
     }
     exit(0);
 }
