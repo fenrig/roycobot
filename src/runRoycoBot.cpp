@@ -21,6 +21,7 @@ void my_handler(int s){
 	   kill(procImgproc, SIGKILL);
 	   kill(procPathplanner, SIGKILL);
 	   kill(procRosCore, SIGKILL);
+	   kill(procShareLoc, SIGKILL);
 	   exit(0);
 }
 
