@@ -247,7 +247,7 @@ int main(int argc, char **argv)
 	                state = SEARCHINGCAN;
 	                zijnerbijna = 0;
 	                break;
-	        }else if(distance > 425 || (distance > 300 && prevdist > distance)){
+	        }else if(distance > 497 || (distance > 300 && prevdist > distance)){
                         state = GOTCAN;
 	        }else if(distance > 190){
                         driveForward();
