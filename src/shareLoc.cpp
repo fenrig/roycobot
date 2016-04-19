@@ -27,7 +27,7 @@ struct udpMessage udpMsg;
 unsigned int x;
 unsigned int y;
 
-void die(std::string s)
+void die(const char *s)
 {
     ROS_ERROR(s);
     exit(1);
