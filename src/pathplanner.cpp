@@ -41,14 +41,14 @@ void otherrobotposFunc(const roycobot::position2d::ConstPtr& signaal){
 
 #define LONGTURN 900
 #define MIDDLETURN 825
-#define SHORTTURN 600
+#define SHORTTURN 650
 
 #define SMALLANGLE 2
 #define MIDDLEANGLE 11
 
 // APPROACHINGCAN
-#define MIDDLEFORWARD 500
-#define SHORTFORWARD 200
+#define MIDDLEFORWARD 600
+#define SHORTFORWARD 250
 
 // ALL
 #define SHORTSLEEP 25
