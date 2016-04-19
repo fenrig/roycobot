@@ -55,7 +55,7 @@ int main(void){
 
 	procImgproc = fork();
 	if(procImgproc == 0){
-		//close(1);
+		close(1);
 #if (DEBUG & DEBUG_LOGGING)
 		dup((int)fopen("imgProc.txt", "w+"));
 #else
@@ -81,11 +81,11 @@ int main(void){
 
 	procPathplanner = fork();
 	if(procPathplanner == 0){
-	        close(1);
+	        //close(1);
 #if (DEBUG & DEBUG_LOGGING)
 		dup((int)fopen("pathplanner.txt", "w+"));
 #else
-                dup((int)fopen("/dev/null", "w"));
+                //dup((int)fopen("/dev/null", "w"));
 #endif
 		int status = system("rosrun roycobot pathplanner");
 		exit(0);
